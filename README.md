@@ -20,8 +20,17 @@ The code reproduces [Fig.1, Fig.2, Table I, etc.] and includes numerical simulat
 
 project-root/
 ├── matlab_simulation/
-│   ├── run_main.m
-│   ├── run_main.m
+│   ├── UW2_InnerAndOuterLeave.m
+│   │   ├── UW2_OuterLeave.m
+│   │   │   ├── UW2_AddInitialLogErrors.m
+│   │   │   └── R_BellMeasurementEC.m
+│   │   └── UW2_InnerLeave.m
+│   │   │   └── UW2_AddInitialLogErrors.m
+│   ├── UW3_InnerAndOuterLeave.m
+│   │   ├── UW3_OuterLeave.m
+│   │   │   └── UW3_AddInitialLogErrors.m
+│   │   └── UW3_InnerLeave.m
+│   │   │   └── UW3_AddInitialLogErrors.m
 │   └── utils/
 │       └── plot_helper.m
 ├── mathematica_simulation/
