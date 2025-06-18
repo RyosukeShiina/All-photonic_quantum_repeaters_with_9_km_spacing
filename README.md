@@ -16,4 +16,7 @@ The code reproduces [Fig.1, Fig.2, Table I, etc.] and includes numerical simulat
 
 ---
 
-## 📁 Folder Structure
+## Folder Structure
+
+## License
+This project is licensed under the MIT License - see the [LICENSE](./LICENSE) file for details.
