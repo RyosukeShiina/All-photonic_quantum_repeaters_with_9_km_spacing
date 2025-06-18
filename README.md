@@ -1,6 +1,5 @@
 # All-photonic_quantum_repeaters_with_9_km_spacing
 
-
 # Code for "All-photonic quantum repeaters with 9 km spacing"  
 Author: Ryosuke Shiina
 Affiliation: University of Massachusetts, Amherst
