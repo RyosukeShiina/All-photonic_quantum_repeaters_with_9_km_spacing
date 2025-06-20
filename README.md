@@ -23,15 +23,19 @@ project-root/
 │   ├── UW2_InnerAndOuterLeave.m
 │   │   ├── UW2_OuterLeave.m
 │   │   │   ├── UW2_AddInitialLogErrors.m
-│   │   │   ├── R_Find_v.m
+│   │   │   ├── .m
 │   │   │   └── R_BellMeasurementEC.m
 │   │   └── UW2_InnerLeave.m
 │   │   │   └── UW2_AddInitialLogErrors.m
+│   │   ├── R_Find_v.m
+│   │   └── R_LogErrAfterPost.m
 │   ├── UW3_InnerAndOuterLeave.m
 │   │   ├── UW3_OuterLeave.m
 │   │   │   └── UW3_AddInitialLogErrors.m
 │   │   └── UW3_InnerLeave.m
 │   │   │   └── UW3_AddInitialLogErrors.m
+│   │   ├── R_Find_v.m
+│   │   └── R_LogErrAfterPost.m
 │   └── utils/
 │       └── plot_helper.m
 ├── mathematica_simulation/
