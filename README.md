@@ -25,23 +25,31 @@ project-root/
 │   │   │   ├── UW2_AddInitialLogErrors.m
 │   │   │   └── R_BellMeasurementECLikelihood.m
 │   │   │       ├── R_ReminderMod.m
-│   │   │       └── R_BellMeasurementECLikelihood.m
+│   │   │       ├── R_SyndromeToErrorsOuter.m
+│   │   │       └── R_JointErrorLikelihood.m
 │   │   └── UW2_InnerLeave.m
 │   │   │   ├── UW2_AddInitialLogErrors.m
 │   │   │   └── R_BellMeasurementEC.m
 │   │   │       ├── R_ReminderMod.m
-│   │   │       └── R_BellMeasurementECLikelihood.m
+│   │   │       ├── R_SyndromeToErrors.m
+│   │   │       └── R_JointErrorLikelihood.m
 │   │   ├── R_Find_v.m
 │   │   └── R_LogErrAfterPost.m
 │   ├── UW3_InnerAndOuterLeave.m
 │   │   ├── UW3_OuterLeave.m
-│   │   │   └── UW3_AddInitialLogErrors.m
+│   │   │   ├── UW3_AddInitialLogErrors.m
+│   │   │   └── R_BellMeasurementECLikelihood.m
+│   │   │       ├── R_ReminderMod.m
+│   │   │       ├── R_SyndromeToErrorsOuter.m
+│   │   │       └── R_JointErrorLikelihood.m
 │   │   └── UW3_InnerLeave.m
-│   │   │   └── UW3_AddInitialLogErrors.m
+│   │   │   ├── UW3_AddInitialLogErrors.m
+│   │   │   └── R_BellMeasurementEC.m
+│   │   │       ├── R_ReminderMod.m
+│   │   │       ├── R_SyndromeToErrors.m
+│   │   │       └── R_JointErrorLikelihood.m
 │   │   ├── R_Find_v.m
 │   │   └── R_LogErrAfterPost.m
-│   └── utils/
-│       └── plot_helper.m
 ├── mathematica_simulation/
 ├── LICENSE # MIT license for usage and redistribution
 └── README.md
