@@ -24,9 +24,13 @@ project-root/
 │   │   ├── UW2_OuterLeave.m
 │   │   │   ├── UW2_AddInitialLogErrors.m
 │   │   │   └── R_BellMeasurementECLikelihood.m
+│   │   │       ├── R_BellMeasurementECLikelihood.m
+│   │   │       └── R_BellMeasurementECLikelihood.m
 │   │   └── UW2_InnerLeave.m
 │   │   │   ├── UW2_AddInitialLogErrors.m
 │   │   │   └── R_BellMeasurementEC.m
+│   │   │       ├── R_BellMeasurementECLikelihood.m
+│   │   │       └── R_BellMeasurementECLikelihood.m
 │   │   ├── R_Find_v.m
 │   │   └── R_LogErrAfterPost.m
 │   ├── UW3_InnerAndOuterLeave.m
