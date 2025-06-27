@@ -27,12 +27,14 @@ project-root/
 │   │   │       ├── R_ReminderMod.m
 │   │   │       ├── R_SyndromeToErrorsOuter.m
 │   │   │       └── R_JointErrorLikelihood.m
+│   │   │           └── R_ErrorLikelihood.m
 │   │   └── UW2_InnerLeave.m
 │   │   │   ├── UW2_AddInitialLogErrors.m
 │   │   │   └── R_BellMeasurementEC.m
 │   │   │       ├── R_ReminderMod.m
 │   │   │       ├── R_SyndromeToErrors.m
 │   │   │       └── R_JointErrorLikelihood.m
+│   │   │           └── R_ErrorLikelihood.m
 │   │   ├── R_Find_v.m
 │   │   └── R_LogErrAfterPost.m
 │   ├── UW3_InnerAndOuterLeave.m
@@ -42,12 +44,14 @@ project-root/
 │   │   │       ├── R_ReminderMod.m
 │   │   │       ├── R_SyndromeToErrorsOuter.m
 │   │   │       └── R_JointErrorLikelihood.m
+│   │   │           └── R_ErrorLikelihood.m
 │   │   └── UW3_InnerLeave.m
 │   │   │   ├── UW3_AddInitialLogErrors.m
 │   │   │   └── R_BellMeasurementEC.m
 │   │   │       ├── R_ReminderMod.m
 │   │   │       ├── R_SyndromeToErrors.m
 │   │   │       └── R_JointErrorLikelihood.m
+│   │   │           └── R_ErrorLikelihood.m
 │   │   ├── R_Find_v.m
 │   │   └── R_LogErrAfterPost.m
 ├── mathematica_simulation/
