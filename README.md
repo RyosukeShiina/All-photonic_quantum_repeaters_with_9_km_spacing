@@ -54,27 +54,10 @@ project-root/
 │   │   │           └── R_ErrorLikelihood.m
 │   │   ├── R_Find_v.m
 │   │   └── R_LogErrAfterPost.m
-│   ├── ML_InnerAndOuterLeave.m
-│   │   ├── ML_OuterLeave.m
-│   │   │   ├── UW3_AddInitialLogErrors.m
-│   │   │   └── R_BellMeasurementECLikelihood.m
-│   │   │       ├── R_ReminderMod.m
-│   │   │       ├── R_SyndromeToErrorsOuter.m
-│   │   │       └── R_JointErrorLikelihood.m
-│   │   │           └── R_ErrorLikelihood.m
-│   │   └── ML_InnerLeave.m
-│   │   │   ├── UW3_AddInitialLogErrors.m
-│   │   │   └── R_BellMeasurementEC.m
-│   │   │       ├── R_ReminderMod.m
-│   │   │       ├── R_SyndromeToErrors.m
-│   │   │       └── R_JointErrorLikelihood.m
-│   │   │           └── R_ErrorLikelihood.m
-│   │   ├── R_Find_v.m
-│   │   └── R_LogErrAfterPost.m
 │   ├── LP_Spool_InnerAndOuterLeave.m
 │   │   ├── LP_OuterLeave.m
 │   │   │   ├── LP_AddInitialLogErrors.m
-│   │   │   └── R_BellMeasurementECLikelihood.m
+│   │   │   └── LP_BellMeasurementECLikelihood.m
 │   │   │       ├── R_ReminderMod.m
 │   │   │       ├── R_SyndromeToErrorsOuter.m
 │   │   │       └── R_JointErrorLikelihood.m
@@ -86,12 +69,11 @@ project-root/
 │   │   │       ├── R_SyndromeToErrors.m
 │   │   │       └── R_JointErrorLikelihood.m
 │   │   │           └── R_ErrorLikelihood.m
-│   │   ├── R_Find_v.m
-│   │   └── R_LogErrAfterPost.m
+│   │   └── LP_LogErrAfterPost.m
 │   └── LP_MR_InnerAndOuterLeave.m
 │       ├── LP_OuterLeave.m
 │       │   ├── LP_AddInitialLogErrors.m
-│       │   └── R_BellMeasurementECLikelihood.m
+│       │   └── LP_BellMeasurementECLikelihood.m
 │       │       ├── R_ReminderMod.m
 │       │       ├── R_SyndromeToErrorsOuter.m
 │       │       └── R_JointErrorLikelihood.m
@@ -103,8 +85,7 @@ project-root/
 │       │       ├── R_SyndromeToErrors.m
 │       │       └── R_JointErrorLikelihood.m
 │       │           └── R_ErrorLikelihood.m
-│       ├── R_Find_v.m
-│       └── R_LogErrAfterPost.m
+│       └── LP_LogErrAfterPost.m
 ├── mathematica_simulation/
 ├── LICENSE # MIT license for usage and redistribution
 └── README.md
