@@ -56,35 +56,31 @@ project-root/
 │   │   └── R_LogErrAfterPost.m
 │   ├── LP_Spool_InnerAndOuterLeave.m
 │   │   ├── LP_OuterLeave.m
+│   │   │   ├── LP_ReminderMod.m
+│   │   │   └── LP_ErrorLikelihood.m
+│   │   ├── LP_Spool_InnerLeave.m
 │   │   │   ├── LP_AddInitialLogErrors.m
-│   │   │   └── LP_BellMeasurementECLikelihood.m
-│   │   │       ├── R_ReminderMod.m
-│   │   │       ├── R_SyndromeToErrorsOuter.m
-│   │   │       └── R_JointErrorLikelihood.m
-│   │   │           └── R_ErrorLikelihood.m
-│   │   └── LP_Spool_InnerLeave.m
-│   │   │   ├── LP_AddInitialLogErrors.m
-│   │   │   └── R_BellMeasurementEC.m
-│   │   │       ├── R_ReminderMod.m
-│   │   │       ├── R_SyndromeToErrors.m
-│   │   │       └── R_JointErrorLikelihood.m
-│   │   │           └── R_ErrorLikelihood.m
+│   │   │   ├── LP_ChannelWithGKPCorr7QubitCode
+│   │   │   │   └── LP_ReminderMod.m
+│   │   │   └── LP_BellMeasurementEC.m
+│   │   │       ├── LP_ReminderMod.m
+│   │   │       ├── LP_SyndromeToErrors.m
+│   │   │       └── LP_JointErrorLikelihood.m
+│   │   │           └── LP_ErrorLikelihood.m
 │   │   └── LP_LogErrAfterPost.m
 │   └── LP_MR_InnerAndOuterLeave.m
 │       ├── LP_OuterLeave.m
+│       │   ├── LP_ReminderMod.m
+│       │   └── LP_ErrorLikelihood.m
+│       ├── LP_MR_InnerLeave.m
 │       │   ├── LP_AddInitialLogErrors.m
-│       │   └── LP_BellMeasurementECLikelihood.m
-│       │       ├── R_ReminderMod.m
-│       │       ├── R_SyndromeToErrorsOuter.m
-│       │       └── R_JointErrorLikelihood.m
-│       │           └── R_ErrorLikelihood.m
-│       └── LP_MR_InnerLeave.m
-│       │   ├── LP_AddInitialLogErrors.m
-│       │   └── R_BellMeasurementEC.m
-│       │       ├── R_ReminderMod.m
-│       │       ├── R_SyndromeToErrors.m
-│       │       └── R_JointErrorLikelihood.m
-│       │           └── R_ErrorLikelihood.m
+│       │   ├── LP_ChannelWithGKPCorr7QubitCode
+│       │   │   └── LP_ReminderMod.m
+│       │   └── LP_BellMeasurementEC.m
+│       │       ├── LP_ReminderMod.m
+│       │       ├── LP_SyndromeToErrors.m
+│       │       └── LP_JointErrorLikelihood.m
+│       │           └── LP_ErrorLikelihood.m
 │       └── LP_LogErrAfterPost.m
 ├── mathematica_simulation/
 ├── LICENSE # MIT license for usage and redistribution
