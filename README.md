@@ -83,6 +83,24 @@ project-root/
 │       │           └── LP_ErrorLikelihood.m
 │       └── LP_LogErrAfterPost.m
 ├── mathematica_simulation/
+│   ├── NoG1_vs_Distance_UW2.m
+│   ├── NoG1_vs_Distance_UW3.m
+│   ├── NoG1_vs_Distance_LP.m
+│   ├── NoG1_vs_k_UW2.m
+│   └── NoG1_vs_k_UW3.m
+├── matlab_simulation_outcomes/
+│   ├── Rate_vs_Distance_UW2
+│   ├── Rate_vs_Distance_UW3
+│   ├── Rate_vs_Distance_LP_Spool
+│   ├── Rate_vs_Distance_LP_MR
+│   ├── Rate_vs_k_UW2
+│   └── Rate_vs_k_UW3
+├── mathematica_simulation_outcomes/
+│   ├── NoG1_vs_Distance_UW2
+│   ├── NoG1_vs_Distance_UW3
+│   ├── NoG1_vs_Distance_LP
+│   ├── NoG1_vs_k_UW2
+│   └── NoG1_vs_k_UW3
 ├── LICENSE # MIT license for usage and redistribution
 └── README.md
 
