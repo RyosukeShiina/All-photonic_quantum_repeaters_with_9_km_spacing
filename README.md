@@ -28,7 +28,7 @@ project-root/
 │   │   │       ├── R_SyndromeToErrorsOuter.m
 │   │   │       └── R_JointErrorLikelihood.m
 │   │   │           └── R_ErrorLikelihood.m
-│   │   └── UW2_InnerLeave.m
+│   │   ├── UW2_InnerLeave.m
 │   │   │   ├── UW2_AddInitialLogErrors.m
 │   │   │   └── R_BellMeasurementEC.m
 │   │   │       ├── R_ReminderMod.m
@@ -45,7 +45,7 @@ project-root/
 │   │   │       ├── R_SyndromeToErrorsOuter.m
 │   │   │       └── R_JointErrorLikelihood.m
 │   │   │           └── R_ErrorLikelihood.m
-│   │   └── UW3_InnerLeave.m
+│   │   ├── UW3_InnerLeave.m
 │   │   │   ├── UW3_AddInitialLogErrors.m
 │   │   │   └── R_BellMeasurementEC.m
 │   │   │       ├── R_ReminderMod.m
