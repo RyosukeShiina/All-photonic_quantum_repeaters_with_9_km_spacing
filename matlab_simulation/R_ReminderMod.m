@@ -27,13 +27,19 @@ out = R_ReminderMod(vec, sqrt(pi))
 
 
 %First, we use the mod function to compute the value modulo sqrt(pi), and the result is mapped into the interval [0, sqrt(pi)].
-out = mod(vec, modval);
+%out = mod(vec, modval);
 
 
 
 %Next, if the result lies in the interval [sqrt(pi)/2, sqrt(pi)], we subtract sqrt(pi) once more. As a result, all values are mapped into the interval [-sqrt(pi)/2, sqrt(pi)/2].
-for i = 1:length(vec)
-    if out(i) > sqrt(pi)/2
-        out(i) = out(i) - sqrt(pi);
-    end
-end
+%for i = 1:length(vec)
+%    if out(i) > sqrt(pi)/2
+%        out(i) = out(i) - sqrt(pi);
+%    end
+%end
+
+
+N = length(vec);
+
+out = mod(vec + (modval/2)*ones(N,1), modval) - (modval/2)*ones(N,1);
+%out = vec - modval*floor(vec/modval + 0.5 * ones(N,1));

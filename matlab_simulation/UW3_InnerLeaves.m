@@ -1,4 +1,4 @@
-function logErr = UW2_InnerLeaves(L0, sigGKP, etas, etam, etad, etac, Lcavity, ErrProbVec)
+function logErr = UW3_InnerLeaves(L0, sigGKP, etas, etam, etad, etac, Lcavity, ErrProbVec)
 
 %{
 
@@ -30,9 +30,9 @@ ErrProbVec — The output of the R_LogErrAfterPost function. It contains the bit
 
 logErr — A (k, 2) binary matrix. Each row corresponds to the i-th high-quality optical channel. The first column indicates the presence of a bit-flip error in the Z basis, and the second column indicates the presence of a bit-flip error in the X basis.
         Specifically:
-            - [0, 0] means that neither Z nor X bit-flip errors occurred.  
-            - [1, 0] means that only a Z bit-flip error occurred.  
-            - [0, 1] means that only an X bit-flip error occurred.  
+            - [0, 0] means that neither Z nor X bit-flip errors occurred.
+            - [1, 0] means that only a Z bit-flip error occurred.
+            - [0, 1] means that only an X bit-flip error occurred.
             - [1, 1] means that both Z and X bit-flip errors occurred.
 
 [Example]
@@ -42,6 +42,7 @@ ErrProbVec = 1.0e-05 *[0.1479, 0.1479, 0.1479, 0.1479, 0.1479, 0.1479, 0.1479, 0
 logErr = UW2_InnerLeaves(9, 0.12, 0.995, 0.999995, 0.9975, 0.99, 2, ErrProbVec)
 
 %}
+
 
 
 
@@ -73,7 +74,6 @@ for i = 1:7
 end
 
 
-
 %The binornd(n, p, A, B) function generates a (A, B) matrix of random numbers drawn from the binomial distribution with n trials and success probability p for each trial.
 %Here, we set n = 1 and obtain a binary matrix, since each GKP qubit can be measured only once. We set A to the number of specified measurement types, and B to the multiplexing level k.
 
@@ -81,23 +81,23 @@ end
 
 %Each outer-Leaves undergoes 23 type 1 measurements during the construction of elementary entangled Bell pairs.
 %We prepare two outer-leaves for use in Outer-Leaves Swapping.
-Sampled3Sigma = binornd(1,ErrProbVec(1),46,1);
+Sampled3Sigma = binornd(1,ErrProbVec(1),100,1);
+
+%We do measurement type-2 22 times during the construction of logical-logical bell pairs.
+Sampled3SigmaSwitch = binornd(1,ErrProbVec(2),100,1);
+Sampled3SigmaSwitchTwice = binornd(1,ErrProbVec(3),100,1);
+Sampled2SigmaSwitch = binornd(1,ErrProbVec(4),100,1);
+Sampled2SigmaSwitchTwice = binornd(1,ErrProbVec(5),100,1);
+SampledRefresh3SigmaSwitchTwice = binornd(1,ErrProbVec(6),100,1);
+SampledRefresh3SigmaSwitchThreeTimes = binornd(1,ErrProbVec(7),100,1);
+SampledRefresh2SigmaSwitchTwice = binornd(1,ErrProbVec(8),100,1);
+SampledRefresh2SigmaSwitchThreeTimes = binornd(1,ErrProbVec(9),100,1);
+SampledRefresh3SigmaSwitch = binornd(1,ErrProbVec(10),100,1);
+SampledRefresh2SigmaSwitch = binornd(1,ErrProbVec(11),100,1);
+SampledNoPost = binornd(1,ErrProbVec(12),40,1);
 
 
 
-%Each outer-Leaves undergoes 11 type 2 measurements during the construction of elementary entangled Bell pairs.
-Sampled3SigmaSwitch = binornd(1,ErrProbVec(2),22,1);
-
-
-
-Sampled3SigmaSwitchTwice = binornd(1,ErrProbVec(3),10,1);
-Sampled2SigmaSwitch = binornd(1,ErrProbVec(4),16,1);
-Sampled2SigmaSwitchTwice = binornd(1,ErrProbVec(5),20,1);
-SampledRefresh3SigmaSwitchTwice = binornd(1,ErrProbVec(6),4,1);
-SampledRefresh3SigmaSwitchThreeTimes = binornd(1,ErrProbVec(7),10,1);
-SampledRefresh2SigmaSwitchTwice = binornd(1,ErrProbVec(8),20,1);
-SampledRefresh2SigmaSwitchThreeTimes = binornd(1,ErrProbVec(9),98,1);
-SampledNoPost = binornd(1,ErrProbVec(10),4,1);
 
 
 
@@ -106,28 +106,21 @@ SampledNoPost = binornd(1,ErrProbVec(10),4,1);
 qdeltas = zeros(7,1);
 pdeltas = zeros(7,1);
 
+%The first half of the above measurement results is used for one inner-leave.
+Sampled1 = {Sampled3Sigma(1:end/2,1),Sampled3SigmaSwitch(1:end/2,1), Sampled3SigmaSwitchTwice(1:end/2,1), Sampled2SigmaSwitch(1:end/2,1), Sampled2SigmaSwitchTwice(1:end/2,1), SampledRefresh3SigmaSwitchTwice(1:end/2,1), SampledRefresh3SigmaSwitchThreeTimes(1:end/2,1), SampledRefresh2SigmaSwitchTwice(1:end/2,1), SampledRefresh2SigmaSwitchThreeTimes(1:end/2,1), SampledRefresh3SigmaSwitch(1:end/2,1), SampledRefresh2SigmaSwitch(1:end/2,1), SampledNoPost(1:end/2,1)};
 
-
-%We can assume that the inner-leaves are identical, since they do not pass through photon fibers but instead go to a mirror room or an optical cavity.
-%The first half of the above measurement results is used for one inner-leave. 
-Sampled1 = {Sampled3Sigma(1:end/2,1),Sampled3SigmaSwitch(1:end/2,1), Sampled3SigmaSwitchTwice(1:end/2,1), Sampled2SigmaSwitch(1:end/2,1), Sampled2SigmaSwitchTwice(1:end/2,1), SampledRefresh3SigmaSwitchTwice(1:end/2,1), SampledRefresh3SigmaSwitchThreeTimes(1:end/2,1), SampledRefresh2SigmaSwitchTwice(1:end/2,1), SampledRefresh2SigmaSwitchThreeTimes(1:end/2,1), SampledNoPost(1:end/2,1)};
-
-
-
-%The second half of the above measurement results is used for the other inner-leave. 
-Sampled2 = {Sampled3Sigma(end/2 + 1:end,1),Sampled3SigmaSwitch(end/2 + 1:end,1), Sampled3SigmaSwitchTwice(end/2 + 1:end,1), Sampled2SigmaSwitch(end/2 + 1:end,1), Sampled2SigmaSwitchTwice(end/2 + 1:end,1), SampledRefresh3SigmaSwitchTwice(end/2 + 1:end,1), SampledRefresh3SigmaSwitchThreeTimes(end/2 + 1:end,1), SampledRefresh2SigmaSwitchTwice(end/2 + 1:end,1),SampledRefresh2SigmaSwitchThreeTimes(end/2 + 1:end,1), SampledNoPost(end/2 + 1:end,1)};
+%The second half of the above measurement results is used for the other inner-leave.
+Sampled2 = {Sampled3Sigma(end/2 + 1:end,1),Sampled3SigmaSwitch(end/2 + 1:end,1), Sampled3SigmaSwitchTwice(end/2 + 1:end,1), Sampled2SigmaSwitch(end/2 + 1:end,1), Sampled2SigmaSwitchTwice(end/2 + 1:end,1), SampledRefresh3SigmaSwitchTwice(end/2 + 1:end,1), SampledRefresh3SigmaSwitchThreeTimes(end/2 + 1:end,1), SampledRefresh2SigmaSwitchTwice(end/2 + 1:end,1),SampledRefresh2SigmaSwitchThreeTimes(end/2 + 1:end,1), SampledRefresh3SigmaSwitch(end/2 + 1:end,1), SampledRefresh2SigmaSwitch(end/2 + 1:end,1), SampledNoPost(end/2 + 1:end,1)};
 
 
 
 %Using the UW2_AddInitialLogErrors function, the errors occurring during (1) Construction of Elementary Entangled Bell Pairs are assigned.
-[qdeltas, pdeltas] = UW2_AddInitialLogErrors(qdeltas, pdeltas, Sampled1);
-[qdeltas, pdeltas] = UW2_AddInitialLogErrors(qdeltas, pdeltas, Sampled2);
-
+[qdeltas, pdeltas] = UW3_AddInitialLogErrors(qdeltas, pdeltas, Sampled1);
+[qdeltas, pdeltas] = UW3_AddInitialLogErrors(qdeltas, pdeltas, Sampled2);
 
 
 %Next, Hadamard gates are applied to the 1st, 2nd, 3rd and 4th qubits to transform the graph state into a Bell pair.
 [qdeltas(1:4), pdeltas(1:4)] = deal(-pdeltas(1:4), qdeltas(1:4));
-
 
 
 %We derive eta that is a total error probability during being stored in a mirror room.
@@ -138,11 +131,14 @@ eta = etam^(L0*1000*10/(Lcavity*7));
 
 
 
-%Subsequently, we apply eta derived above, along with additional errors.  
+
+
+%Subsequently, we apply eta derived above, along with additional errors.
 %Note that the final Elementary Entangled Bell Pairs are affected by a single optical switch and pass through four connectors from the factory to the detection center in a repeater, in addition to one more optical switch located at the detection center.
 sigChannel = sqrt(2*sigGKP^2 + (1-etas^2*etac^4*eta*etad)/(etas^2*etac^4*eta*etad));
 qdeltas = qdeltas + normrnd(0, sigChannel, 7, 1);
 pdeltas = pdeltas + normrnd(0, sigChannel, 7, 1);
+
 
 
 
@@ -156,6 +152,8 @@ Xerrors = R_ConcatenatedEC_InnerLeaves(qdeltas, sigChannel, tableSingleErr, tabl
 
 
 
+
+
 %We check whether an Z-error has occurred for each optical channel.
 if any(Zerrors)
     Zerr = 1;
@@ -164,13 +162,12 @@ else
 end
 
 
-
-%We check whether an X-error has occurred for each optical channel.
 if any(Xerrors)
     Xerr = 1;
 else
     Xerr = 0;
 end
+
 
 
 

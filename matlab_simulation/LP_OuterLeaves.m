@@ -1,4 +1,4 @@
-function logErr = UW2_OuterLeaves(L0, sigGKP, etas, etad, etac, k, ErrProbVec)
+function logErr = LP_OuterLeaves(L0, sigGKP, etas, etad, etac, k, ErrProbVec)
 
 %{
 
@@ -37,7 +37,7 @@ logErr — A (k, 2) binary matrix. Each row corresponds to the i-th high-quality
 
 ErrProbVec = 1.0e-05 *[0.1479, 0.1479, 0.1479, 0.1479, 0.1479, 0.1479, 0.1479, 0.1479, 0.1479, 0.3341]
 
-logErr = UW2_OuterLeaves(9, 0.12, 0.995, 0.9975, 0.99, 15, ErrProbVec)
+logErr = LP_OuterLeaves(9, 0.12, 0.995, 0.9975, 0.99, 15, ErrProbVec)
 
 %}
 
@@ -81,58 +81,40 @@ end
 
 %Each outer-Leaves undergoes 23 type 1 measurements during the construction of elementary entangled Bell pairs. 
 %We prepare two outer-leaves for use in Outer-Leaves Swapping.
-Sampled3Sigma = binornd(1,ErrProbVec(1),46,k);
+Sampled3Sigma = binornd(1,ErrProbVec(1),100,k);
 
-
-
-%Each outer-Leaves undergoes 11 type 2 measurements during the construction of elementary entangled Bell pairs.
-Sampled3SigmaSwitch = binornd(1,ErrProbVec(2),22,k);
-
-
-
-Sampled3SigmaSwitchTwice = binornd(1,ErrProbVec(3),10,k);
-Sampled2SigmaSwitch = binornd(1,ErrProbVec(4),16,k);
-Sampled2SigmaSwitchTwice = binornd(1,ErrProbVec(5),20,k);
-SampledRefresh3SigmaSwitchTwice = binornd(1,ErrProbVec(6),4,k);
-SampledRefresh3SigmaSwitchThreeTimes = binornd(1,ErrProbVec(7),10,k);
-SampledRefresh2SigmaSwitchTwice = binornd(1,ErrProbVec(8),20,k);
-SampledRefresh2SigmaSwitchThreeTimes = binornd(1,ErrProbVec(9),98,k);
-SampledNoPost = binornd(1,ErrProbVec(10),4,k);
+%We do measurement type-2 22 times during the construction of logical-logical bell pairs.
+Sampled3SigmaSwitch = binornd(1,ErrProbVec(2),100,k);
+Sampled3SigmaSwitchTwice = binornd(1,ErrProbVec(3),100,k);
+Sampled2SigmaSwitch = binornd(1,ErrProbVec(4),100,k);
+Sampled2SigmaSwitchTwice = binornd(1,ErrProbVec(5),100,k);
+SampledRefresh3SigmaSwitchTwice = binornd(1,ErrProbVec(6),100,k);
+SampledRefresh3SigmaSwitchThreeTimes = binornd(1,ErrProbVec(7),100,k);
+SampledRefresh2SigmaSwitchTwice = binornd(1,ErrProbVec(8),100,k);
+SampledRefresh2SigmaSwitchThreeTimes = binornd(1,ErrProbVec(9),100,k);
+SampledRefresh3SigmaSwitch = binornd(1,ErrProbVec(10),100,k);
+SampledRefresh2SigmaSwitch = binornd(1,ErrProbVec(11),100,k);
+SampledNoPost = binornd(1,ErrProbVec(12),100,k);
 
 
 
 %We prepare two blank matrices to record the bit-flip errors in the Z and X bases during (1) Construction of Elementary Entangled Bell Pairs.
-qdeltas = zeros(7,k);
-pdeltas = zeros(7,k);
+qdeltas = zeros(1,k);   %%%%%%%%%%%%%%%%CHANGED%%%%%%%%%%%%%%%%%%%
+pdeltas = zeros(1,k);   %%%%%%%%%%%%%%%%CHANGED%%%%%%%%%%%%%%%%%%%
 
 
 
-%When the multiplexing level is k, the above measurement results for each optical channel are distributed to the two outer-leaves.
 for i = 1:k
-
-
-
-    %The first half of the above measurement results is used for one outer-leave. 
-    Sampled1ithlevel = {Sampled3Sigma(1:end/2,i),Sampled3SigmaSwitch(1:end/2,i), Sampled3SigmaSwitchTwice(1:end/2,i), Sampled2SigmaSwitch(1:end/2,i), Sampled2SigmaSwitchTwice(1:end/2,i), SampledRefresh3SigmaSwitchTwice(1:end/2,i), SampledRefresh3SigmaSwitchThreeTimes(1:end/2,i), SampledRefresh2SigmaSwitchTwice(1:end/2,i), SampledRefresh2SigmaSwitchThreeTimes(1:end/2,i), SampledNoPost(1:end/2,i)};
-    
-
-    %Using the UW2_AddInitialLogErrors function, the errors occurring during (1) Construction of Elementary Entangled Bell Pairs are assigned.
-    [qdeltas(:,i),pdeltas(:,i)] = UW2_AddInitialLogErrors(qdeltas(:,i), pdeltas(:,i), Sampled1ithlevel);
-    
-
-    %The second half of the above measurement results is used for the other outer-leave. 
-    Sampled2ithlevel = {Sampled3Sigma(end/2 + 1:end,i), Sampled3SigmaSwitch(end/2 + 1:end,i), Sampled3SigmaSwitchTwice(end/2 + 1:end,i), Sampled2SigmaSwitch(end/2 + 1:end,i), Sampled2SigmaSwitchTwice(end/2 + 1:end,i), SampledRefresh3SigmaSwitchTwice(end/2 + 1:end,i), SampledRefresh3SigmaSwitchThreeTimes(end/2 + 1:end,i), SampledRefresh2SigmaSwitchTwice(end/2 + 1:end,i),SampledRefresh2SigmaSwitchThreeTimes(end/2 + 1:end,i), SampledNoPost(end/2 + 1:end,i)};
-    
-
-
-     %Using the UW2_AddInitialLogErrors function, the errors occurring during (1) Construction of Elementary Entangled Bell Pairs are assigned.
-    [qdeltas(:,i),pdeltas(:,i)] = UW2_AddInitialLogErrors(qdeltas(:,i), pdeltas(:,i), Sampled2ithlevel);
+    Sampled1ithlevel = {Sampled3Sigma(1:end/2,i),Sampled3SigmaSwitch(1:end/2,i), Sampled3SigmaSwitchTwice(1:end/2,i), Sampled2SigmaSwitch(1:end/2,i), Sampled2SigmaSwitchTwice(1:end/2,i), SampledRefresh3SigmaSwitchTwice(1:end/2,i), SampledRefresh3SigmaSwitchThreeTimes(1:end/2,i), SampledRefresh2SigmaSwitchTwice(1:end/2,i), SampledRefresh2SigmaSwitchThreeTimes(1:end/2,i),SampledRefresh3SigmaSwitch(1:end/2,i), SampledRefresh2SigmaSwitch(1:end/2,i), SampledNoPost(1:end/2,i)};
+    [qdeltas(:,i),pdeltas(:,i)] = LP_AddInitialLogErrorsOuterLeaf(qdeltas(:,i), pdeltas(:,i), Sampled1ithlevel);
+    Sampled2ithlevel = {Sampled3Sigma(end/2 + 1:end,i), Sampled3SigmaSwitch(end/2 + 1:end,i), Sampled3SigmaSwitchTwice(end/2 + 1:end,i), Sampled2SigmaSwitch(end/2 + 1:end,i), Sampled2SigmaSwitchTwice(end/2 + 1:end,i), SampledRefresh3SigmaSwitchTwice(end/2 + 1:end,i), SampledRefresh3SigmaSwitchThreeTimes(end/2 + 1:end,i), SampledRefresh2SigmaSwitchTwice(end/2 + 1:end,i),SampledRefresh2SigmaSwitchThreeTimes(end/2 + 1:end,i),SampledRefresh3SigmaSwitch(end/2 + 1:end,i),SampledRefresh2SigmaSwitch(end/2 + 1:end,i), SampledNoPost(end/2 + 1:end,i)};
+    [qdeltas(:,i),pdeltas(:,i)] = LP_AddInitialLogErrorsOuterLeaf(qdeltas(:,i), pdeltas(:,i), Sampled2ithlevel);
 end
 
 
 
 %Next, Hadamard gates are applied to the 5th, 6th, and 7th qubits to transform the graph state into a Bell pair.
-[qdeltas(5:7,:), pdeltas(5:7,:)] = deal(-pdeltas(5:7,:), qdeltas(5:7,:));
+%[qdeltas(5:7,:), pdeltas(5:7,:)] = deal(-pdeltas(5:7,:), qdeltas(5:7,:)); %%%%%%%%%%%%%%%%CHANGED%%%%%%%%%%%%%%%%%%%
 
 
 
@@ -141,9 +123,9 @@ end
 Latt = 22;
 eta = exp(-L0/(2*Latt));
 sigChannel = sqrt(2*sigGKP^2 + (1-etas*etac*eta*etad)/(etas*etac*eta*etad));
-qdeltas = qdeltas + normrnd(0, sigChannel, 7, k); 
-pdeltas = pdeltas + normrnd(0, sigChannel, 7, k);
 
+qdeltas = qdeltas + normrnd(0, sigChannel, 1, k); %%%%%%%%%%%%%%%%CHANGED%%%%%%%%%%%%%%%%%%%
+pdeltas = pdeltas + normrnd(0, sigChannel, 1, k); %%%%%%%%%%%%%%%%CHANGED%%%%%%%%%%%%%%%%%%%
 
 
 %We prepare two blank column vectors to record final X-type and Z-type errors that occur during (2) Outer-Leaves Swapping.
@@ -152,41 +134,25 @@ Zerr = zeros(k,1);
 
 
 
-%We prepare two blank row vectors to record the 7 binary bits after [[7, 1, 3]] Steane error correction for each optical channel.
-Xerrors = zeros(7,k);
-Zerrors = zeros(7,k);
+qZVec = R_ReminderMod(qdeltas, sqrt(pi)); %%%%%%%%%%%%%%%%CHANGED%%%%%%%%%%%%%%%%%%%
+qErrLike = R_ErrorLikelihood(qZVec, sigChannel); %%%%%%%%%%%%%%%%CHANGED%%%%%%%%%%%%%WHAT IS SIGQ?%%%%%%
+
+pZVec = R_ReminderMod(pdeltas, sqrt(pi)); %%%%%%%%%%%%%%%%CHANGED%%%%%%%%%%%%%%%%%%%
+pErrLike = R_ErrorLikelihood(pZVec, sigChannel); %%%%%%%%%%%%%%%%CHANGED%%%%%%%%%%%%WHAT IS SIGP?%%%%%%%
+
+%PNoError = (1 - qErrLike).*(1 - pErrLike); %%%%%%%%%%%%%%%%CHANGED%%%%%%%%%%%%%%%%%%%
 
 
 
-%We prepare two blank row vectors to record the small r(q) and r(p) values for each optical channel.
-PcorrectQ = zeros(1,k);
-PcorrectP = zeros(1,k);
 
 
+SecKeyRanking = zeros(size(pErrLike, 2), 1);
 
-%Using the R_BellMeasurementECLikelihood function, we calculate the 7 binary bits resulting from [[7, 1, 3]] Steane error correction (if no error occurs, the result is a row vector of seven zeros), as well as the r(q) values for each optical channel in the q-quadrature.
-for i = 1:k
-    [Xerrors(:,i),PcorrectQ(i)] = R_ConcatenatedEC_OuterLeaves(qdeltas(:,i), sigChannel, tableSingleErr, tableDoubleErr, tableTripleErr);
+for i = 1:size(pErrLike, 2)
+    SecKeyRanking(i) = R_SecretKey6State_per(pErrLike(i), qErrLike(i));
 end
 
 
-
-%Using the R_BellMeasurementECLikelihood function, we calculate the 7 binary bits resulting from [[7, 1, 3]] Steane error correction (if no error occurs, the result is a row vector of seven zeros), as well as the r(p) values for each optical channel in the p-quadrature.
-for i = 1:k
-    [Zerrors(:,i),PcorrectP(i)] = R_ConcatenatedEC_OuterLeaves(pdeltas(:,i), sigChannel, tableSingleErr, tableDoubleErr, tableTripleErr);
-end
-
-
-
-%The capital Q , denoting quality, is defined below as PNoError. To facilitate calculation, we take the logarithm and sum the corresponding r(q) and r(p) values.
-PerrorQ = 1-2.^PcorrectQ;
-PerrorP = 1-2.^PcorrectP;
-
-SecKeyRanking = zeros(size(PerrorP, 2), 1);
-
-for i = 1:size(PerrorP, 2)
-    SecKeyRanking(i) = R_SecretKey6State_per(PerrorP(i), PerrorQ(i));
-end
 
 %We sort the capital Q (PNoError) values in descending order.
 [~, IndDesc] = sort(SecKeyRanking, 'descend');
@@ -195,17 +161,20 @@ end
 
 %We check whether an Z-error has occurred for each optical channel.
 for i = 1:k
-    if any(Zerrors(:, IndDesc(i)))
-        Zerr(i) = 1;
+    ns = round((qdeltas(IndDesc(i)) - qZVec(IndDesc(i)))/sqrt(pi));
+    
+    if mod(ns,2) == 1
+        Xerr(i) = 1;
     end
 end
 
-
-
-%We check whether an X-error has occurred for each optical channel.
+%Now check whether there were Z errors on the corresponding qubits
+%in descening order according to PNoError:
 for i = 1:k
-    if any(Xerrors(:, IndDesc(i)))
-        Xerr(i) = 1;
+    ns = round((pdeltas(IndDesc(i)) - pZVec(IndDesc(i)))/sqrt(pi));
+    
+    if mod(ns,2) == 1
+        Zerr(i) = 1;
     end
 end
 
