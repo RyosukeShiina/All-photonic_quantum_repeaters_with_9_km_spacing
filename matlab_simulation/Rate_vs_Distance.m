@@ -7,7 +7,7 @@ etac = 0.99;
 Lcavity = 2;
 v = 0.3; 
 leaves = 1;
-N = 10000;
+N = 100000000;
 
 xdata = [];
 y0 = [];
@@ -59,7 +59,7 @@ disp("*******UW3_9km*******");
 
 for i = 9:9:3006
     outUW3_9 = R_SecretKeyRate_per(9, i, ZerrUW3_9, XerrUW3_9);
-    y3 = [y2, outUW3_9];
+    y3 = [y3, outUW3_9];
 end
 
 writematrix(y3, 'Rate_vs_Distance_UW3_k=15_9km.csv');

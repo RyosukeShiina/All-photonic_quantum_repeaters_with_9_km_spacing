@@ -35,9 +35,9 @@ out_990km = [];
 out_1035km = [];
 
 tic;
-disp("*******The simulation has started.*******");
-for i = 1:1:20
-    disp("Starting loop k=" + string(i))
+disp("*******This simulation starts*******");
+for i = 21:1:28
+    disp(i);
     [ZerrUW3, XerrUW3] = UW3_InnerAndOuterLeaves(9, sigGKP, etas, etam, etad, etac, Lcavity, i, v, leaves, N);
     disp("UW3_Zerr")
     disp(ZerrUW3)
@@ -67,33 +67,33 @@ for i = 1:1:20
     out_945km = [out_945km, R_SecretKeyRate_total(9, 945, ZerrUW3, XerrUW3);];
     out_990km = [out_990km, R_SecretKeyRate_total(9, 990, ZerrUW3, XerrUW3);];
     out_1035km = [out_1035km, R_SecretKeyRate_total(9, 1035, ZerrUW3, XerrUW3);];
-    disp("*******The loop has completed.*******")
+    disp("******This loop was finished*****")
 end
 
-writematrix(out_45km, 'Rate_vs_k_UW3_45km.csv');
-writematrix(out_90km, 'Rate_vs_k_UW3_90km.csv');
-writematrix(out_135km, 'Rate_vs_k_UW3_135km.csv');
-writematrix(out_180km, 'Rate_vs_k_UW3_180km.csv');
-writematrix(out_225km, 'Rate_vs_k_UW3_225km.csv');
-writematrix(out_270km, 'Rate_vs_k_UW3_270km.csv');
-writematrix(out_315km, 'Rate_vs_k_UW3_315km.csv');
-writematrix(out_360km, 'Rate_vs_k_UW3_360km.csv');
-writematrix(out_405km, 'Rate_vs_k_UW3_405km.csv');
-writematrix(out_450km, 'Rate_vs_k_UW3_450km.csv');
-writematrix(out_495km, 'Rate_vs_k_UW3_495km.csv');
-writematrix(out_540km, 'Rate_vs_k_UW3_540km.csv');
-writematrix(out_585km, 'Rate_vs_k_UW3_585km.csv');
-writematrix(out_630km, 'Rate_vs_k_UW3_630km.csv');
-writematrix(out_675km, 'Rate_vs_k_UW3_675km.csv');
-writematrix(out_720km, 'Rate_vs_k_UW3_720km.csv');
-writematrix(out_765km, 'Rate_vs_k_UW3_765km.csv');
-writematrix(out_810km, 'Rate_vs_k_UW3_810km.csv');
-writematrix(out_855km, 'Rate_vs_k_UW3_855km.csv');
-writematrix(out_900km, 'Rate_vs_k_UW3_900km.csv');
-writematrix(out_945km, 'Rate_vs_k_UW3_945km.csv');
-writematrix(out_990km, 'Rate_vs_k_UW3_990km.csv');
-writematrix(out_1035km, 'Rate_vs_k_UW3_1035km.csv');
+writematrix(out_45km, 'Rate_vs_k_UW3_45km_from21.csv');
+writematrix(out_90km, 'Rate_vs_k_UW3_90km_from21.csv');
+writematrix(out_135km, 'Rate_vs_k_UW3_135km_from21.csv');
+writematrix(out_180km, 'Rate_vs_k_UW3_180km_from21.csv');
+writematrix(out_225km, 'Rate_vs_k_UW3_225km_from21.csv');
+writematrix(out_270km, 'Rate_vs_k_UW3_270km_from21.csv');
+writematrix(out_315km, 'Rate_vs_k_UW3_315km_from21.csv');
+writematrix(out_360km, 'Rate_vs_k_UW3_360km_from21.csv');
+writematrix(out_405km, 'Rate_vs_k_UW3_405km_from21.csv');
+writematrix(out_450km, 'Rate_vs_k_UW3_450km_from21.csv');
+writematrix(out_495km, 'Rate_vs_k_UW3_495km_from21.csv');
+writematrix(out_540km, 'Rate_vs_k_UW3_540km_from21.csv');
+writematrix(out_585km, 'Rate_vs_k_UW3_585km_from21.csv');
+writematrix(out_630km, 'Rate_vs_k_UW3_630km_from21.csv');
+writematrix(out_675km, 'Rate_vs_k_UW3_675km_from21.csv');
+writematrix(out_720km, 'Rate_vs_k_UW3_720km_from21.csv');
+writematrix(out_765km, 'Rate_vs_k_UW3_765km_from21.csv');
+writematrix(out_810km, 'Rate_vs_k_UW3_810km_from21.csv');
+writematrix(out_855km, 'Rate_vs_k_UW3_855km_from21.csv');
+writematrix(out_900km, 'Rate_vs_k_UW3_900km_from21.csv');
+writematrix(out_945km, 'Rate_vs_k_UW3_945km_from21.csv');
+writematrix(out_990km, 'Rate_vs_k_UW3_990km_from21.csv');
+writematrix(out_1035km, 'Rate_vs_k_UW3_1035km_from21.csv');
 
-disp("*******The simulation has finished.*******")
+disp("******This simulation was finished*****")
 elapsedTime = toc;
 fprintf('Simulation duration: %.3f seconds\n', elapsedTime);

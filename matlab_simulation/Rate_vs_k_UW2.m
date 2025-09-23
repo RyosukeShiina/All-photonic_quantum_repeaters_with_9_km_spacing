@@ -39,10 +39,10 @@ disp("*******This simulation starts*******");
 for i = 1:1:20
     disp(i);
     [ZerrUW2, XerrUW2] = UW2_InnerAndOuterLeaves(9, sigGKP, etas, etam, etad, etac, Lcavity, i, v, leaves, N);
-    disp("UW3_Zerr")
-    disp(ZerrUW3)
-    disp("UW3_Xerr")
-    disp(XerrUW3)
+    disp("UW2_Zerr")
+    disp(ZerrUW2)
+    disp("UW2_Xerr")
+    disp(XerrUW2)
     xdata = [xdata, i];
     out_45km = [out_45km, R_SecretKeyRate_total(9, 45, ZerrUW2, XerrUW2);];
     out_90km = [out_90km, R_SecretKeyRate_total(9, 90, ZerrUW2, XerrUW2);];
