@@ -23,14 +23,14 @@ project-root/
 │   ├── UW2_InnerAndOuterLeave.m
 │   │   ├── UW2_OuterLeave.m
 │   │   │   ├── UW2_AddInitialLogErrors.m
-│   │   │   └── R_BellMeasurementECLikelihood.m
+│   │   │   └── R_ConcatenatedEC_OuterLeaves.m
 │   │   │       ├── R_ReminderMod.m
 │   │   │       ├── R_SyndromeToErrorsOuter.m
 │   │   │       └── R_JointErrorLikelihood.m
 │   │   │           └── R_ErrorLikelihood.m
 │   │   ├── UW2_InnerLeave.m
 │   │   │   ├── UW2_AddInitialLogErrors.m
-│   │   │   └── R_BellMeasurementEC.m
+│   │   │   └── R_ConcatenatedEC_InnerLeaves.m
 │   │   │       ├── R_ReminderMod.m
 │   │   │       ├── R_SyndromeToErrors.m
 │   │   │       └── R_JointErrorLikelihood.m
@@ -40,48 +40,54 @@ project-root/
 │   ├── UW3_InnerAndOuterLeave.m
 │   │   ├── UW3_OuterLeave.m
 │   │   │   ├── UW3_AddInitialLogErrors.m
-│   │   │   └── R_BellMeasurementECLikelihood.m
+│   │   │   └── R_ConcatenatedEC_OuterLeaves.m
 │   │   │       ├── R_ReminderMod.m
 │   │   │       ├── R_SyndromeToErrorsOuter.m
 │   │   │       └── R_JointErrorLikelihood.m
 │   │   │           └── R_ErrorLikelihood.m
 │   │   ├── UW3_InnerLeave.m
 │   │   │   ├── UW3_AddInitialLogErrors.m
-│   │   │   └── R_BellMeasurementEC.m
+│   │   │   └── R_ConcatenatedEC_InnerLeaves.m
 │   │   │       ├── R_ReminderMod.m
 │   │   │       ├── R_SyndromeToErrors.m
 │   │   │       └── R_JointErrorLikelihood.m
 │   │   │           └── R_ErrorLikelihood.m
 │   │   ├── R_Find_v.m
 │   │   └── R_LogErrAfterPost.m
-│   ├── LP_Spool_InnerAndOuterLeave.m
+│   ├── LP_InnerAndOuterLeave.m
 │   │   ├── LP_OuterLeave.m
-│   │   │   ├── LP_ReminderMod.m
-│   │   │   └── LP_ErrorLikelihood.m
-│   │   ├── LP_Spool_InnerLeave.m
-│   │   │   ├── LP_AddInitialLogErrors.m
-│   │   │   ├── LP_ChannelWithGKPCorr7QubitCode
-│   │   │   │   └── LP_ReminderMod.m
-│   │   │   └── LP_BellMeasurementEC.m
-│   │   │       ├── LP_ReminderMod.m
-│   │   │       ├── LP_SyndromeToErrors.m
-│   │   │       └── LP_JointErrorLikelihood.m
-│   │   │           └── LP_ErrorLikelihood.m
-│   │   └── LP_LogErrAfterPost.m
-│   └── LP_MR_InnerAndOuterLeave.m
+│   │   │   ├── LP_AddInitialLogErrorsOuterLeaf.m
+│   │   │   └── R_ConcatenatedEC_OuterLeaves.m
+│   │   │       ├── R_ReminderMod.m
+│   │   │       ├── R_SyndromeToErrorsOuter.m
+│   │   │       └── R_JointErrorLikelihood.m
+│   │   │           └── R_ErrorLikelihood.m
+│   │   ├── LP_InnerLeave.m
+│   │   │   ├── LP_AddInitialLogErrorsInnerLeaves.m
+│   │   │   └── R_ConcatenatedEC_InnerLeaves.m
+│   │   │       ├── R_ReminderMod.m
+│   │   │       ├── R_SyndromeToErrors.m
+│   │   │       └── R_JointErrorLikelihood.m
+│   │   │           └── R_ErrorLikelihood.m
+│   │   ├── R_Find_v.m
+│   │   └── R_LogErrAfterPost.m
+│   └── LP_Spool_InnerAndOuterLeave.m
 │       ├── LP_OuterLeave.m
-│       │   ├── LP_ReminderMod.m
-│       │   └── LP_ErrorLikelihood.m
-│       ├── LP_MR_InnerLeave.m
-│       │   ├── LP_AddInitialLogErrors.m
-│       │   ├── LP_ChannelWithGKPCorr7QubitCode
-│       │   │   └── LP_ReminderMod.m
-│       │   └── LP_BellMeasurementEC.m
-│       │       ├── LP_ReminderMod.m
-│       │       ├── LP_SyndromeToErrors.m
-│       │       └── LP_JointErrorLikelihood.m
-│       │           └── LP_ErrorLikelihood.m
-│       └── LP_LogErrAfterPost.m
+│       │   ├── LP_AddInitialLogErrorsOuterLeaf.m
+│       │   └── R_ConcatenatedEC_OuterLeaves.m
+│       │       ├── R_ReminderMod.m
+│       │       ├── R_SyndromeToErrorsOuter.m
+│       │       └── R_JointErrorLikelihood.m
+│       │           └── R_ErrorLikelihood.m
+│       ├── LP_Spool_InnerLeave.m
+│       │   ├── LP_AddInitialLogErrorsInnerLeaves.m
+│       │   └── R_ConcatenatedEC_InnerLeaves.m
+│       │       ├── R_ReminderMod.m
+│       │       ├── R_SyndromeToErrors.m
+│       │       └── R_JointErrorLikelihood.m
+│       │           └── R_ErrorLikelihood.m
+│       ├── R_Find_v.m
+│       └── R_LogErrAfterPost.m
 ├── mathematica_simulation/
 │   ├── NoG1_vs_Distance_UW2.m
 │   ├── NoG1_vs_Distance_UW3.m
