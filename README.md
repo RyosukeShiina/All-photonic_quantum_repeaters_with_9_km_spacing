@@ -25,7 +25,7 @@ project-root/
 │   │   │   ├── UW2_AddInitialLogErrors.m
 │   │   │   └── R_ConcatenatedEC_OuterLeaves.m
 │   │   │       ├── R_ReminderMod.m
-│   │   │       ├── R_SyndromeToErrorsOuter.m
+│   │   │       ├── R_SyndromeToErrors.m
 │   │   │       └── R_JointErrorLikelihood.m
 │   │   │           └── R_ErrorLikelihood.m
 │   │   ├── UW2_InnerLeave.m
@@ -42,7 +42,7 @@ project-root/
 │   │   │   ├── UW3_AddInitialLogErrors.m
 │   │   │   └── R_ConcatenatedEC_OuterLeaves.m
 │   │   │       ├── R_ReminderMod.m
-│   │   │       ├── R_SyndromeToErrorsOuter.m
+│   │   │       ├── R_SyndromeToErrors.m
 │   │   │       └── R_JointErrorLikelihood.m
 │   │   │           └── R_ErrorLikelihood.m
 │   │   ├── UW3_InnerLeave.m
@@ -59,7 +59,7 @@ project-root/
 │   │   │   ├── LP_AddInitialLogErrorsOuterLeaf.m
 │   │   │   └── R_ConcatenatedEC_OuterLeaves.m
 │   │   │       ├── R_ReminderMod.m
-│   │   │       ├── R_SyndromeToErrorsOuter.m
+│   │   │       ├── R_SyndromeToErrors.m
 │   │   │       └── R_JointErrorLikelihood.m
 │   │   │           └── R_ErrorLikelihood.m
 │   │   ├── LP_InnerLeave.m
@@ -76,7 +76,7 @@ project-root/
 │       │   ├── LP_AddInitialLogErrorsOuterLeaf.m
 │       │   └── R_ConcatenatedEC_OuterLeaves.m
 │       │       ├── R_ReminderMod.m
-│       │       ├── R_SyndromeToErrorsOuter.m
+│       │       ├── R_SyndromeToErrors.m
 │       │       └── R_JointErrorLikelihood.m
 │       │           └── R_ErrorLikelihood.m
 │       ├── LP_Spool_InnerLeave.m
