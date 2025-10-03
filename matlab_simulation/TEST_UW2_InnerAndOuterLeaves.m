@@ -1,5 +1,5 @@
 %Abstract:
-%This file tests our UW3_InnerAndOuterLeaves-function.
+%This file tests our UW2_InnerAndOuterLeaves-function.
 %Please try "results = runtests('TEST_UW2_InnerAndOuterLeaves.m')"
 L = 9;
 sigGKP = 0.12;
