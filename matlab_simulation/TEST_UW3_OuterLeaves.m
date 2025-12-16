@@ -1,6 +1,7 @@
 %Abstract:
-%This file tests our UW3_OutnerLeaves-function.
-%Please try "results = runtests('TEST_UW3_OuterLeaves.m')"
+%This file tests our UW3_OutnerLeaves function.
+%Run the test by executing:
+%   results = runtests('TEST_UW3_OuterLeaves.m');
 
 L = 9;
 sigGKP = 0.12;

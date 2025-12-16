@@ -1,6 +1,8 @@
 %Abstract:
-%This file tests our UW2_InnerAndOuterLeaves-function.
-%Please try "results = runtests('TEST_UW2_InnerAndOuterLeaves.m')"
+%This file tests our UW2_InnerAndOuterLeaves function.
+%Run the test by executing:
+%   results = runtests('TEST_UW2_InnerAndOuterLeaves.m');
+
 L = 9;
 sigGKP = 0.12;
 etas = 0.995;
@@ -21,6 +23,7 @@ L2 = 20;
 [Zerr2,Xerr2] = UW2_InnerAndOuterLeaves(L2, sigGKP, etas, etam, etad, etac, Lcavity, k, v, leaves, N);
 
 assert(all(Zerr1 < Zerr2, 'all'))
+assert(all(Xerr1 < Xerr2, 'all'))
 
 
 %Test2: When the sigGKP increases, our error probabilities increase.
@@ -30,4 +33,5 @@ sigGKP2 = 0.18;
 [Zerr1,Xerr1] = UW2_InnerAndOuterLeaves(L, sigGKP1, etas, etam, etad, etac, Lcavity, k, v, leaves, N);
 [Zerr2,Xerr2] = UW2_InnerAndOuterLeaves(L, sigGKP2, etas, etam, etad, etac, Lcavity, k, v, leaves, N);
 
+assert(all(Zerr1 < Zerr2, 'all'))
 assert(all(Xerr1 < Xerr2, 'all'))

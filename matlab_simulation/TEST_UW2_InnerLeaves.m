@@ -1,6 +1,7 @@
 %Abstract:
-%This file tests our UW2_InnerLeaves-function.
-%Please try "results = runtests('TEST_UW2_InnerLeaves.m')"
+%This file tests our UW2_InnerLeaves function.
+%Run the test by executing:
+%   results = runtests('TEST_UW2_InnerLeaves.m');
 
 L = 9;
 sigGKP = 0.12;
