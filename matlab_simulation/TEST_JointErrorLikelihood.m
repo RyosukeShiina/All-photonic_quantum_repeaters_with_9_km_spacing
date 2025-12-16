@@ -1,41 +1,66 @@
 %Abstract:
-%This file tests our R_ReminderMod function.
+%This file tests our R_JointErrorLikelihood function.
 %Run the test by executing:
 %   results = runtests('TEST_JointErrorLikelihood.m');
 
 
 error_vector1 = [0; 0; 0; 0; 0; 0; 0];
-error_vector2 = [0; 0; 1; 0; 1; 0; 0];
-error_vector3 = [0; 1; 1; 0; 0; 1; 1];
+error_vector2 = [1; 1; 1; 1; 1; 1; 1];
+error_vector3 = [0; 0; 1; 0; 1; 0; 0];
+error_vector4 = [0; 0; 1; 0; 1; 1; 0];
 
-z_matrix1 = [0.1; 0.1; 0.1; 0.1; 0.1; 0.1; 0.1];
-z_matrix2 = [0.1; 0.1; 0.1; 0.1; 0.1; 0.1; 0.1];
-z_matrix3 = [0.1; 0.1; 0.1; 0.1; 0.1; 0.1; 0.1];
+z_matrix = [sqrt(pi)/5; -sqrt(pi)/7; 0.1; -0.2; sqrt(pi)/10; -sqrt(pi)/9; 0.2];
+
+sig = 0.527;
 
 
-%Note: The outcomes are alweys between 0 and 0.5.
-%Note: The inputs are alweys between –sqrt(pi)/2 and sqrt(pi)/2.
+%Note: The z_matrices are alweys between –sqrt(pi)/2 and sqrt(pi)/2.
 
-%Test1: When z is at sqrt(pi)/2, the error likelihood should be 50% because this is exactly in the middle of logical 0 and logical 1.
-z = sqrt(pi)/2;
-out1 = R_ErrorLikelihood(z, sig2);
-disp(out1);
-assert(abs(out1 - 0.5) < 1e-3);
+%Precompute per-qubit likelihoods
+test = zeros(7,1);
+for i = 1:7
+    test(i) = R_ErrorLikelihood(z_matrix(i), sig);
+end
 
-%Test2: At the same z point, the error likelihood of the smaller standard deviation should be smaller than the error likelihood of the bigger standard deviation
-z = sqrt(pi)/5;
-out2 = R_ErrorLikelihood(z, sig1);
-out3 = R_ErrorLikelihood(z, sig2);
-out4 = R_ErrorLikelihood(z, sig3);
-disp(out2);
-disp(out3);
-disp(out4);
-assert(out2 < out3);
-assert(out3 < out4);
 
-%Test3: When z is at sqrt(pi)/3, the likelihood should be between the results of Test1 and Test2.
-z = sqrt(pi)/3;
-out5 = R_ErrorLikelihood(z, sig2);
-disp(out5);
-assert(out5 < out1);
-assert(out3 < out5);
+
+
+%Test 1: All-zero error vector [0; 0; 0; 0; 0; 0; 0] -> sum log2(1-p_i)
+out1 = R_JointErrorLikelihood(error_vector1, z_matrix, sig);
+out2 = 0;
+for i = 1:7
+    out2 = out2 + log2(1 - test(i));
+end
+assert(abs(out1 - out2) < 1e-12);
+
+
+
+%Test 2: All-one error vector [1; 1; 1; 1; 1; 1; 1] -> sum log2(p_i)
+out3 = R_JointErrorLikelihood(error_vector2, z_matrix, sig);
+out4 = 0;
+for i = 1:7
+    out4 = out4 + log2(test(i));
+end
+assert(abs(out3 - out4) < 1e-12);
+
+
+
+% Test 3: Mixed error vector [0; 0; 1; 0; 1; 0; 0];
+out5 = R_JointErrorLikelihood(error_vector3, z_matrix, sig);
+out6 = 0;
+for i = 1:7
+    if error_vector3(i)==1
+        out6 = out6 + log2(test(i));
+    else
+        out6 = out6 + log2(1 - test(i));
+    end
+end
+assert(abs(out5 - out6) < 1e-12);
+
+
+% Test 4: Flipping one bit changes output by a known amount
+% If we flip qubit j from 0->1, delta should be log2(p_j) - log2(1-p_j)
+out7 = R_JointErrorLikelihood(error_vector4, z_matrix, sig);
+delta = out7 - out5;
+delta2 = log2(test(6)) - log2(1 - test(6));
+assert(abs(delta - delta2) < 1e-12);
