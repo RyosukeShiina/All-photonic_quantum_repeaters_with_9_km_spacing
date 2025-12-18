@@ -20,7 +20,7 @@ function out = R_SecretKey6State_total(QerrZ, QerrX)
 %out -              secret key per optical mode
 
 %Extract independent probabilities X, Y, Z
-qZ = QerrZ .* (1 - QerrX);
+qZ = QerrZ .* (1 - QerrX); %end
 qX = QerrX .* (1 - QerrZ);
 qY = QerrZ .* QerrX;
 
@@ -70,5 +70,4 @@ end
 out = max([out1,out2,zeros(size(Lambdas,1),1)],[],2);
 
 
-%out = sum(out)/size(Lambdas,1);
-out = sum(out); %%%ASK
+out = sum(out);

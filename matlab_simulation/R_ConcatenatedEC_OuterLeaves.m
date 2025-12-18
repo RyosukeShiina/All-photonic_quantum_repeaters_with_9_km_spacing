@@ -48,7 +48,7 @@ for i = 1:7
    end
 end
 
-[MultiqubitErrors, Pcorrect] = R_BellMeasurementECLikelihood(deltas, sigma, tableSingleErr, tableDoubleErr, tableTripleErr)
+[MultiqubitErrors, Pcorrect] = R_ConcatenatedEC_OuterLeaves(deltas, sigma, tableSingleErr, tableDoubleErr, tableTripleErr)
 
 %}
 
@@ -129,7 +129,6 @@ end
 
 
 
-%We pick the maximum ξ from the ErrProb list and store its index in indmax.
 if error_matrix(1,:) == zeros(1,7)
     ErrProbGrouped = [ErrProb(1,1), log2(sum(2.^ErrProb(1,2:end)))];
 else
@@ -137,10 +136,6 @@ else
 end
 
 [maxErrProb,indmax] = max(ErrProbGrouped);
-
-
-%We assume that the error pattern with the maximum ξ did in fact occur, and correct it by applying this error to the previously prepared MultiqubitErrors column vector.
-%Moreover, we use the mod function to compute modulo 2 of each element.
 
 
 MultiqubitErrors = mod(MultiqubitErrors + transpose(error_matrix(indmax,:)), 2);
