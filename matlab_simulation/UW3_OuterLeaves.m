@@ -21,7 +21,7 @@ etac — The efficiency of a single connector between the photon fiber and the q
 
 k — The number of multiplexing levels. For example, setting k = 15 results in the generation of 15 end-to-end entangled Bell pairs.
 
-ErrProbVec — The output of the R_LogErrAfterPost function. It contains the bit-flip error probabilities for the 10 measurement types, which are made approximately equal by tuning the window sizes.
+ErrProbVec — The output of the R_LogErrAfterPost function. It contains the bit-flip error probabilities for the 12 measurement types, which are made approximately equal by tuning the window sizes.
 
 
 [Output]
@@ -35,7 +35,7 @@ logErr — A (k, 2) binary matrix. Each row corresponds to the i-th high-quality
 
 [Example]
 
-ErrProbVec = 1.0e-05 *[0.1479, 0.1479, 0.1479, 0.1479, 0.1479, 0.1479, 0.1479, 0.1479, 0.1479, 0.3341]
+ErrProbVec = 1.0e-05 *[0.1479, 0.1479, 0.1479, 0.1479, 0.1479, 0.1479, 0.1479, 0.1479, 0.1479, 0.3341, 0.1479, 0.3341]
 
 logErr = UW3_OuterLeaves(9, 0.12, 0.995, 0.9975, 0.99, 15, ErrProbVec)
 

@@ -77,6 +77,8 @@ sigmasPostselect(7) = sqrt(3*sigGKP^2 + 1 - etas^3 + (1-etad)/etad);
 sigmasPostselect(8) = sqrt(2*sigGKP^2 + 1 - etas^2 + (1-etad)/etad);
 sigmasPostselect(9) = sqrt(2*sigGKP^2 + 1 - etas^3 + (1-etad)/etad);
 
+sigmasPostselect(10) = sqrt(3*sigGKP^2 + (1-etas^3*etad)/(etas^3*etad));
+
 % Measurement without postselection
 sigmasNoPost = sqrt(2*sigGKP^2 + (1-etas*etad)/(etas*etad));
 

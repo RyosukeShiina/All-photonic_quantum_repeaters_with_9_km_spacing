@@ -23,7 +23,7 @@ etac — The efficiency of a single connector between the photon fiber and the q
 
 Lcavity — The distance between successive bounces inside a mirror room or an optical cavity, measured in meters [m]. Typically, we set Lcavity = 2.
 
-ErrProbVec — The output of the R_LogErrAfterPost function. It contains the bit-flip error probabilities for the 10 measurement types, which are made approximately equal by tuning the window sizes.
+ErrProbVec — The output of the R_LogErrAfterPost function. It contains the bit-flip error probabilities for the 12 measurement types, which are made approximately equal by tuning the window sizes.
 
 
 [Output]
@@ -37,9 +37,9 @@ logErr — A (k, 2) binary matrix. Each row corresponds to the i-th high-quality
 
 [Example]
 
-ErrProbVec = 1.0e-05 *[0.1479, 0.1479, 0.1479, 0.1479, 0.1479, 0.1479, 0.1479, 0.1479, 0.1479, 0.3341]
+ErrProbVec = 1.0e-05 *[0.1479, 0.1479, 0.1479, 0.1479, 0.1479, 0.1479, 0.1479, 0.1479, 0.1479, 0.3341, 0.1479, 0.3341]
 
-logErr = UW2_InnerLeaves(9, 0.12, 0.995, 0.999995, 0.9975, 0.99, 2, ErrProbVec)
+logErr = UW3_InnerLeaves(9, 0.12, 0.995, 0.999995, 0.9975, 0.99, 2, ErrProbVec)
 
 %}
 
