@@ -1,4 +1,4 @@
-function logErr = UW3_InnerLeaves(L0, sigGKP, etas, etam, etad, etac, Lcavity, ErrProbVec)
+function logErr = LP_Spool_InnerLeaves(L0, sigGKP, etas, etam, etad, etac, Lcavity, ErrProbVec)
 
 %Abstract:
 %This function outputs the error probabilities of a bit-flip error on the Z-basis and the X-basis happening during one inner leaf measurement inside one repeater.
@@ -122,7 +122,7 @@ else
     Zerr = 0;
 end
 
-%Next, we use the BellMeasurementEC-function to simulate X-basis bit-flip errors with qdeltas.
+%Next, we use the R_ConcatenatedEC_InnerLeaves to simulate X-basis bit-flip errors with qdeltas.
 Xerrors = R_ConcatenatedEC_InnerLeaves(qdeltas, sigChannel, tableSingleErr, tableDoubleErr, tableTripleErr);
 
 if any(Xerrors)

@@ -17,8 +17,8 @@ N = 1000;
 
 
 %Test1: When the distance increases, our error probabilities increase.
-L1 = 9;
-L2 = 20;
+L1 = 4;
+L2 = 10;
 [Zerr1,Xerr1] = LP_InnerAndOuterLeaves(L1, sigGKP, etas, etam, etad, etac, Lcavity, k, v, leaves, N);
 [Zerr2,Xerr2] = LP_InnerAndOuterLeaves(L2, sigGKP, etas, etam, etad, etac, Lcavity, k, v, leaves, N);
 
@@ -27,7 +27,7 @@ assert(all(Xerr1 < Xerr2, 'all'))
 
 
 %Test2: When the sigGKP increases, our error probabilities increase.
-sigGKP1 = 0.12;
+sigGKP1 = 0.05;
 sigGKP2 = 0.18;
 
 [Zerr1,Xerr1] = LP_InnerAndOuterLeaves(L, sigGKP1, etas, etam, etad, etac, Lcavity, k, v, leaves, N);

@@ -142,12 +142,12 @@ pdeltas = pdeltas + normrnd(0, sigChannel, 7, 1);
 
 
 
-%Using the R_BellMeasurementEC function, we calculate the 7 binary bits resulting from [[7, 1, 3]] Steane error correction (if no error occurs, the result is a row vector of seven zeros) in the q-quadrature.
+%Using the R_ConcatenatedEC_InnerLeaves function, we calculate the 7 binary bits resulting from [[7, 1, 3]] Steane error correction (if no error occurs, the result is a row vector of seven zeros) in the q-quadrature.
 Zerrors = R_ConcatenatedEC_InnerLeaves(pdeltas, sigChannel, tableSingleErr, tableDoubleErr, tableTripleErr);
 
 
 
-%Using the R_BellMeasurementEC function, we calculate the 7 binary bits resulting from [[7, 1, 3]] Steane error correction (if no error occurs, the result is a row vector of seven zeros) in the p-quadrature.
+%Using the R_ConcatenatedEC_InnerLeaves function, we calculate the 7 binary bits resulting from [[7, 1, 3]] Steane error correction (if no error occurs, the result is a row vector of seven zeros) in the p-quadrature.
 Xerrors = R_ConcatenatedEC_InnerLeaves(qdeltas, sigChannel, tableSingleErr, tableDoubleErr, tableTripleErr);
 
 

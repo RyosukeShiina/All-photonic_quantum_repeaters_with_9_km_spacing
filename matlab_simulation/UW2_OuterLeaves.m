@@ -164,14 +164,14 @@ PcorrectP = zeros(1,k);
 
 
 
-%Using the R_BellMeasurementECLikelihood function, we calculate the 7 binary bits resulting from [[7, 1, 3]] Steane error correction (if no error occurs, the result is a row vector of seven zeros), as well as the r(q) values for each optical channel in the q-quadrature.
+%Using the R_ConcatenatedEC_OuterLeaves function, we calculate the 7 binary bits resulting from [[7, 1, 3]] Steane error correction (if no error occurs, the result is a row vector of seven zeros), as well as the r(q) values for each optical channel in the q-quadrature.
 for i = 1:k
     [Xerrors(:,i),PcorrectQ(i)] = R_ConcatenatedEC_OuterLeaves(qdeltas(:,i), sigChannel, tableSingleErr, tableDoubleErr, tableTripleErr);
 end
 
 
 
-%Using the R_BellMeasurementECLikelihood function, we calculate the 7 binary bits resulting from [[7, 1, 3]] Steane error correction (if no error occurs, the result is a row vector of seven zeros), as well as the r(p) values for each optical channel in the p-quadrature.
+%Using the R_ConcatenatedEC_OuterLeaves function, we calculate the 7 binary bits resulting from [[7, 1, 3]] Steane error correction (if no error occurs, the result is a row vector of seven zeros), as well as the r(p) values for each optical channel in the p-quadrature.
 for i = 1:k
     [Zerrors(:,i),PcorrectP(i)] = R_ConcatenatedEC_OuterLeaves(pdeltas(:,i), sigChannel, tableSingleErr, tableDoubleErr, tableTripleErr);
 end

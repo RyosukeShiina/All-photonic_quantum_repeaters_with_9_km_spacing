@@ -21,7 +21,7 @@ etac — The efficiency of a single connector between the photon fiber and the q
 
 k — The number of multiplexing levels. For example, setting k = 15 results in the generation of 15 end-to-end entangled Bell pairs.
 
-ErrProbVec — The output of the R_LogErrAfterPost function. It contains the bit-flip error probabilities for the 10 measurement types, which are made approximately equal by tuning the window sizes.
+ErrProbVec — The output of the R_LogErrAfterPost function. It contains the bit-flip error probabilities for the 12 measurement types, which are made approximately equal by tuning the window sizes.
 
 
 [Output]
@@ -35,7 +35,7 @@ logErr — A (k, 2) binary matrix. Each row corresponds to the i-th high-quality
 
 [Example]
 
-ErrProbVec = 1.0e-05 *[0.1479, 0.1479, 0.1479, 0.1479, 0.1479, 0.1479, 0.1479, 0.1479, 0.1479, 0.3341]
+ErrProbVec = 1.0e-05 *[0.1479, 0.1479, 0.1479, 0.1479, 0.1479, 0.1479, 0.1479, 0.1479, 0.1479, 0.3341, 0.1479, 0.3341]
 
 logErr = LP_OuterLeaves(9, 0.12, 0.995, 0.9975, 0.99, 15, ErrProbVec)
 
@@ -99,8 +99,8 @@ SampledNoPost = binornd(1,ErrProbVec(12),100,k);
 
 
 %We prepare two blank matrices to record the bit-flip errors in the Z and X bases during (1) Construction of Elementary Entangled Bell Pairs.
-qdeltas = zeros(1,k);   %%%%%%%%%%%%%%%%CHANGED%%%%%%%%%%%%%%%%%%%
-pdeltas = zeros(1,k);   %%%%%%%%%%%%%%%%CHANGED%%%%%%%%%%%%%%%%%%%
+qdeltas = zeros(1,k);
+pdeltas = zeros(1,k);
 
 
 
@@ -114,7 +114,8 @@ end
 
 
 %Next, Hadamard gates are applied to the 5th, 6th, and 7th qubits to transform the graph state into a Bell pair.
-%[qdeltas(5:7,:), pdeltas(5:7,:)] = deal(-pdeltas(5:7,:), qdeltas(5:7,:)); %%%%%%%%%%%%%%%%CHANGED%%%%%%%%%%%%%%%%%%%
+
+%[qdeltas(5:7,:), pdeltas(5:7,:)] = deal(-pdeltas(5:7,:), qdeltas(5:7,:));
 
 
 
@@ -124,8 +125,8 @@ Latt = 22;
 eta = exp(-L0/(2*Latt));
 sigChannel = sqrt(2*sigGKP^2 + (1-etas*etac*eta*etad)/(etas*etac*eta*etad));
 
-qdeltas = qdeltas + normrnd(0, sigChannel, 1, k); %%%%%%%%%%%%%%%%CHANGED%%%%%%%%%%%%%%%%%%%
-pdeltas = pdeltas + normrnd(0, sigChannel, 1, k); %%%%%%%%%%%%%%%%CHANGED%%%%%%%%%%%%%%%%%%%
+qdeltas = qdeltas + normrnd(0, sigChannel, 1, k);
+pdeltas = pdeltas + normrnd(0, sigChannel, 1, k);
 
 
 %We prepare two blank column vectors to record final X-type and Z-type errors that occur during (2) Outer-Leaves Swapping.
@@ -134,16 +135,13 @@ Zerr = zeros(k,1);
 
 
 
-qZVec = R_ReminderMod(qdeltas, sqrt(pi)); %%%%%%%%%%%%%%%%CHANGED%%%%%%%%%%%%%%%%%%%
-qErrLike = R_ErrorLikelihood(qZVec, sigChannel); %%%%%%%%%%%%%%%%CHANGED%%%%%%%%%%%%%WHAT IS SIGQ?%%%%%%
+qZVec = R_ReminderMod(qdeltas, sqrt(pi));
+qErrLike = R_ErrorLikelihood(qZVec, sigChannel);
 
-pZVec = R_ReminderMod(pdeltas, sqrt(pi)); %%%%%%%%%%%%%%%%CHANGED%%%%%%%%%%%%%%%%%%%
-pErrLike = R_ErrorLikelihood(pZVec, sigChannel); %%%%%%%%%%%%%%%%CHANGED%%%%%%%%%%%%WHAT IS SIGP?%%%%%%%
+pZVec = R_ReminderMod(pdeltas, sqrt(pi));
+pErrLike = R_ErrorLikelihood(pZVec, sigChannel);
 
-%PNoError = (1 - qErrLike).*(1 - pErrLike); %%%%%%%%%%%%%%%%CHANGED%%%%%%%%%%%%%%%%%%%
-
-
-
+%PNoError = (1 - qErrLike).*(1 - pErrLike);
 
 
 SecKeyRanking = zeros(size(pErrLike, 2), 1);
@@ -153,10 +151,8 @@ for i = 1:size(pErrLike, 2)
 end
 
 
-
 %We sort the capital Q (PNoError) values in descending order.
 [~, IndDesc] = sort(SecKeyRanking, 'descend');
-
 
 
 %We check whether an Z-error has occurred for each optical channel.
@@ -177,8 +173,6 @@ for i = 1:k
         Zerr(i) = 1;
     end
 end
-
-
 
 %Finally, we combine the two results above for each optical channel.
 logErr = [Zerr, Xerr];
