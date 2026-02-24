@@ -102,7 +102,7 @@ project-root/
 │       │   └── LP_SteaneEC
 │       │       ├── R_ReminderMod.m
 │       │       ├── R_SyndromeToErrors.m
-│       │       └── R_JointErrorLikelihood.m
+│       │       └── LP_JointErrorLikelihood.m
 │       │           └── R_ErrorLikelihood.m
 │       ├── R_Find_v.m
 │       └── R_LogErrAfterPost.m
