@@ -1,23 +1,26 @@
-# All-photonic_quantum_repeaters_with_9_km_spacing
-
 # Code for "All-photonic quantum repeaters with 9 km spacing"  
 Author: Ryosuke Shiina
-Affiliation: University of Massachusetts, Amherst
+Affiliation: University of Massachusetts Amherst
 Contact: rshiina@umass.edu
 
-#　Description
-This repository contains the Matlab and Mathematica code used to generate the results in our paper.
+# Description
+This repository contains the MATLAB, Mathematica, and Python code used to generate the results in our paper.
 
-> **"All-photonic quantum repeaters with 9 km spacing"**,  
->  Ryosuke Shiina, [arXiv ID or DOI]  
-> ([Link])
+# For QCNC paper readers
+This repository already contains simulation outputs used in the QCNC figures.
+To reproduce QCNC figures from the provided data:
+1. Go to `python_plotting/`
+2. Open and run the following notebooks:
+   - QCNC Fig. 3: `QCNC_camera-ready_FIG9B01_Rate_vs_Distance.ipynb`
+   - QCNC Fig. 4: `QCNC_camera-ready_FIG9B02-FIG9B05_Rate_vs_k.ipynb`
+   - QCNC Fig. 5: `QCNC_camera-ready_FIG9C01_NoGKP_vs_Distance.ipynb`
+   - QCNC Fig. 6: `QCNC_camera-ready_FIG9D01_Cost_vs_k.ipynb`
+   - QCNC Fig. 7: `QCNC_camera-ready_FIGExtra_Rate_vs_Distance.ipynb`
+   - QCNC Fig. 8: `QCNC_camera-ready_FIGExtra_etam_vs_Lcavity.ipynb`
+The notebooks load data from `python_plotting/Fig_Data/`.
+If you would like to regenerate the simulation outputs from scratch, please use the UW3 series.
 
-The code reproduces [Fig.1, Fig.2, Table I, etc.] and includes numerical simulations of [○○ model, GKP error correction, etc.].
-
----
-
-## Folder Structure
-
+# Folder Structure and Call Hierarchy
 project-root/
 ├── matlab_simulation/
 │   ├── UW2_InnerAndOuterLeave.m
@@ -54,7 +57,7 @@ project-root/
 │   │   │           └── R_ErrorLikelihood.m
 │   │   ├── R_Find_v.m
 │   │   └── R_LogErrAfterPost.m
-│   ├── MR_InnerAndOuterLeave.m
+│   ├── ML_InnerAndOuterLeave.m (ML stands for memoryless)
 │   │   ├── UW2_OuterLeave.m
 │   │   │   ├── UW2_AddInitialLogErrors.m
 │   │   │   └── R_ConcatenatedEC_OuterLeaves.m
@@ -71,14 +74,12 @@ project-root/
 │   │   │           └── R_ErrorLikelihood.m
 │   │   ├── R_Find_v.m
 │   │   └── R_LogErrAfterPost.m
-│   ├── LP_InnerAndOuterLeave.m
-│   │   ├── LP_OuterLeave.m
+│   ├── LP_InnerAndOuterLeave.m (LP stands for Logical-Physical)
+│   │   ├── LP_OuterLeaf.m
 │   │   │   ├── LP_AddInitialLogErrorsOuterLeaf.m
-│   │   │   └── R_ConcatenatedEC_OuterLeaves.m
+│   │   │   └── LP_GKPEC_OuterLeaf.m
 │   │   │       ├── R_ReminderMod.m
-│   │   │       ├── R_SyndromeToErrors.m
-│   │   │       └── R_JointErrorLikelihood.m
-│   │   │           └── R_ErrorLikelihood.m
+│   │   │       └── R_ErrorLikelihood.m
 │   │   ├── LP_InnerLeave.m
 │   │   │   ├── LP_AddInitialLogErrorsInnerLeaves.m
 │   │   │   └── R_ConcatenatedEC_InnerLeaves.m
@@ -89,16 +90,16 @@ project-root/
 │   │   ├── R_Find_v.m
 │   │   └── R_LogErrAfterPost.m
 │   └── LP_Spool_InnerAndOuterLeave.m
-│       ├── LP_OuterLeave.m
+│       ├── LP_OuterLeaf.m
 │       │   ├── LP_AddInitialLogErrorsOuterLeaf.m
-│       │   └── R_ConcatenatedEC_OuterLeaves.m
+│       │   └── LP_GKPEC_OuterLeaf.m
 │       │       ├── R_ReminderMod.m
-│       │       ├── R_SyndromeToErrors.m
-│       │       └── R_JointErrorLikelihood.m
-│       │           └── R_ErrorLikelihood.m
+│       │       └── R_ErrorLikelihood.m
 │       ├── LP_Spool_InnerLeave.m
 │       │   ├── LP_AddInitialLogErrorsInnerLeaves.m
-│       │   └── R_ConcatenatedEC_InnerLeaves.m
+│       │   ├── LP_TEC_Spool.m
+│       │   │   └── R_ReminderMod.m
+│       │   └── LP_SteaneEC
 │       │       ├── R_ReminderMod.m
 │       │       ├── R_SyndromeToErrors.m
 │       │       └── R_JointErrorLikelihood.m
@@ -115,7 +116,7 @@ project-root/
 │   ├── Rate_vs_Distance_UW2
 │   ├── Rate_vs_Distance_UW3
 │   ├── Rate_vs_Distance_LP_Spool
-│   ├── Rate_vs_Distance_LP_MR
+│   ├── Rate_vs_Distance_LP_ML
 │   ├── Rate_vs_k_UW2
 │   └── Rate_vs_k_UW3
 ├── mathematica_simulation_outcomes/
@@ -125,8 +126,17 @@ project-root/
 │   ├── NoG1_vs_k_UW2
 │   └── NoG1_vs_k_UW3
 ├── python_plotting/
+│   ├── QCNC_camera-ready_FIG9B01_Rate_vs_Distance.ipynb (QCNC_Fig 3)
+│   ├── QCNC_camera-ready_FIG9B02-FIG9B05_Rate_vs_k.ipynb (QCNC_Fig 4)
+│   ├── QCNC_camera-ready_FIG9C01_NoGKP_vs_Distance.ipynb (QCNC_Fig 5)
+│   ├── QCNC_camera-ready_FIG9D01_Cost_vs_k.ipynb (QCNC_Fig 6)
+│   ├── QCNC_camera-ready_FIGExtra_Rate_vs_Distance.ipynb (QCNC_Fig 7)
+│   ├── QCNC_camera-ready_FIGExtra_etam_vs_Lcavity.ipynb (QCNC_Fig 8)
+│   └── Fig_Data
+│       ├── Rate_vs_Distance
+│       └── Rate_vs_Distance
 ├── LICENSE # MIT license for usage and redistribution
 └── README.md
 
-## License
+# License
 This project is licensed under the MIT License - see the [LICENSE](./LICENSE) file for details.
