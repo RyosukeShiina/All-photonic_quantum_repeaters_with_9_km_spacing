@@ -1,0 +1,15 @@
+Loading matlab version r2024a
+*******The simulation has started.*******
+*******UW2_8km*******
+Starting parallel pool (parpool) using the 'Processes' profile ...
+Connected to parallel pool with 120 workers.
+Launching updater executable
+Warning: program compiled against libxml 213 using older 209
+*******UW3_8km*******
+*******UW2_9km*******
+*******UW3_9km*******
+*******UW2_10km*******
+*******UW3_10km*******
+*******The simulation has finished.*******
+Simulation duration: 34063.164 seconds
+Parallel pool using the 'Processes' profile is shutting down.
