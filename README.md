@@ -11,12 +11,12 @@ This repository already contains simulation outputs used in the QCNC figures.
 To reproduce QCNC figures from the provided data:
 1. Go to `python_plotting/`
 2. Open and run the following notebooks:
-   - QCNC Fig. 3: `QCNC_camera-ready_FIG9B01_Rate_vs_Distance.ipynb`
-   - QCNC Fig. 4: `QCNC_camera-ready_FIG9B02-FIG9B05_Rate_vs_k.ipynb`
-   - QCNC Fig. 5: `QCNC_camera-ready_FIG9C01_NoGKP_vs_Distance.ipynb`
-   - QCNC Fig. 6: `QCNC_camera-ready_FIG9D01_Cost_vs_k.ipynb`
-   - QCNC Fig. 7: `QCNC_camera-ready_FIGExtra_Rate_vs_Distance.ipynb`
-   - QCNC Fig. 8: `QCNC_camera-ready_FIGExtra_etam_vs_Lcavity.ipynb`
+   - QCNC Fig. 3: `QCNC_camera-ready_FIG3_Rate_vs_Distance.ipynb`
+   - QCNC Fig. 4: `QCNC_camera-ready_FIG4_Rate_vs_k.ipynb`
+   - QCNC Fig. 5: `QCNC_camera-ready_FIG5_NoGKP_vs_Distance.ipynb`
+   - QCNC Fig. 6: `QCNC_camera-ready_FIG6_Cost_vs_k.ipynb`
+   - QCNC Fig. 7: `QCNC_camera-ready_FIG7_Rate_vs_Distance.ipynb`
+   - QCNC Fig. 8: `QCNC_camera-ready_FIG8_etam_vs_Lcavity.ipynb`
 The notebooks load data from `python_plotting/Fig_Data/`.
 If you would like to regenerate the simulation outputs from scratch, please use the UW3 series.
 
@@ -126,15 +126,18 @@ project-root/
 │   ├── NoG1_vs_k_UW2
 │   └── NoG1_vs_k_UW3
 ├── python_plotting/
-│   ├── QCNC_camera-ready_FIG9B01_Rate_vs_Distance.ipynb (QCNC_Fig 3)
-│   ├── QCNC_camera-ready_FIG9B02-FIG9B05_Rate_vs_k.ipynb (QCNC_Fig 4)
-│   ├── QCNC_camera-ready_FIG9C01_NoGKP_vs_Distance.ipynb (QCNC_Fig 5)
-│   ├── QCNC_camera-ready_FIG9D01_Cost_vs_k.ipynb (QCNC_Fig 6)
-│   ├── QCNC_camera-ready_FIGExtra_Rate_vs_Distance.ipynb (QCNC_Fig 7)
-│   ├── QCNC_camera-ready_FIGExtra_etam_vs_Lcavity.ipynb (QCNC_Fig 8)
+│   ├── QCNC_camera-ready_FIG3_Rate_vs_Distance.ipynb (QCNC_Fig 3)
+│   ├── QCNC_camera-ready_FIG4_Rate_vs_k.ipynb (QCNC_Fig 4)
+│   ├── QCNC_camera-ready_FIG5_NoGKP_vs_Distance.ipynb (QCNC_Fig 5)
+│   ├── QCNC_camera-ready_FIG6_Cost_vs_k.ipynb (QCNC_Fig 6)
+│   ├── QCNC_camera-ready_FIG7_Rate_vs_Distance.ipynb (QCNC_Fig 7)
+│   ├── QCNC_camera-ready_FIG8_etam_vs_Lcavity.ipynb (QCNC_Fig 8)
 │   └── Fig_Data
-│       ├── Rate_vs_Distance
-│       └── Rate_vs_Distance
+│       ├── Rate_vs_Distance_UW2_and_UW3
+│       ├── Rate_vs_Distance_ML_and_LP
+│       ├── Rate_vs_k
+│       ├── NoG1_vs_Distance
+│       └── NoG1_vs_k
 ├── LICENSE # MIT license for usage and redistribution
 └── README.md
 
