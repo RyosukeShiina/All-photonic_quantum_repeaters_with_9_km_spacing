@@ -111,23 +111,18 @@ project-root/
 │       └── R_LogErrAfterPost.m
 ├── mathematica_simulation/
 │   ├── NoG1_vs_Distance_UW2.m
+│   ├── NoG1_vs_Distance_UW2_k=15.m
 │   ├── NoG1_vs_Distance_UW3.m
-│   ├── NoG1_vs_Distance_LP.m
 │   ├── NoG1_vs_k_UW2.m
-│   └── NoG1_vs_k_UW3.m
-├── matlab_simulation_outcomes/
-│   ├── Rate_vs_Distance_UW2
-│   ├── Rate_vs_Distance_UW3
-│   ├── Rate_vs_Distance_LP_Spool
-│   ├── Rate_vs_Distance_LP_ML
-│   ├── Rate_vs_k_UW2
-│   └── Rate_vs_k_UW3
-├── mathematica_simulation_outcomes/
-│   ├── NoG1_vs_Distance_UW2
-│   ├── NoG1_vs_Distance_UW3
-│   ├── NoG1_vs_Distance_LP
-│   ├── NoG1_vs_k_UW2
-│   └── NoG1_vs_k_UW3
+│   ├── NoG1_vs_k_UW2_k=14.m
+│   ├── NoG1_vs_k_UW2_k=15.m
+│   ├── NoG1_vs_k_UW2_k=16.m
+│   ├── NoG1_vs_k_UW2_k=17.m
+│   ├── NoG1_vs_k_UW2_k=18.m
+│   ├── NoG1_vs_k_UW2_k=19.m
+│   ├── NoG1_vs_k_UW2_k=20.m
+│   ├── NoG1_vs_k_UW3.m
+│   └── NoG1_vs_Distance_LP.m
 ├── python_plotting/
 │   ├── QCNC_camera-ready_FIG3_Rate_vs_Distance.ipynb (QCNC_Fig 3)
 │   ├── QCNC_camera-ready_FIG4_Rate_vs_k.ipynb (QCNC_Fig 4)
@@ -135,7 +130,9 @@ project-root/
 │   ├── QCNC_camera-ready_FIG6_Cost_vs_k.ipynb (QCNC_Fig 6)
 │   ├── QCNC_camera-ready_FIG7_Rate_vs_Distance.ipynb (QCNC_Fig 7)
 │   ├── QCNC_camera-ready_FIG8_etam_vs_Lcavity.ipynb (QCNC_Fig 8)
-│   └── Fig_Data
+│   └── fig_data
+│       ├── Perror_vs_v7
+│       ├── Pdiscard_vs_v7
 │       ├── Rate_vs_Distance_UW2_and_UW3
 │       ├── Rate_vs_Distance_ML_and_LP
 │       ├── Rate_vs_k
