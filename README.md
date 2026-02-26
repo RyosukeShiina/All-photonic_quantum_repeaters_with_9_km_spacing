@@ -22,6 +22,8 @@ The notebooks load data from `python_plotting/Fig_Data/`.
 If you would like to regenerate the simulation outputs from scratch, please use the UW3 series.
 
 # Folder Structure and Call Hierarchy
+When viewing this repository on GitHub, please first open the `README.md` file. To properly display the directory tree shown below, make sure to click on the **Code** tab.
+
 project-root/
 ├── matlab_simulation/
 │   ├── UW2_InnerAndOuterLeave.m
