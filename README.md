@@ -17,6 +17,7 @@ To reproduce QCNC figures from the provided data:
    - QCNC Fig. 6: `QCNC_camera-ready_FIG6_Cost_vs_k.ipynb`
    - QCNC Fig. 7: `QCNC_camera-ready_FIG7_Rate_vs_Distance.ipynb`
    - QCNC Fig. 8: `QCNC_camera-ready_FIG8_etam_vs_Lcavity.ipynb`
+
 The notebooks load data from `python_plotting/Fig_Data/`.
 If you would like to regenerate the simulation outputs from scratch, please use the UW3 series.
 
