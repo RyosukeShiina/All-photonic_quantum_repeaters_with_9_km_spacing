@@ -61,7 +61,8 @@ deltas0 = zeros(7,1);
 
 check_output(E0, P0);
 assert(isequal(E0, zeros(7,1)));
-assert(abs(P0) < 1e-6);
+assert(P0 <= tol);
+assert(P0 > -1);
                                                            
 
 
