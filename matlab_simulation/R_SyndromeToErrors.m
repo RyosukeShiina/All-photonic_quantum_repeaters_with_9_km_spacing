@@ -56,13 +56,13 @@ error_matrix = [];
 %    error_matrix = cat(1, error_matrix, zeros(1, 7));
 %end
 
-if syndrome_vec == [0, 0, 0]
+if isequal(syndrome_vec, [0 0 0])
     error_matrix = cat(1, error_matrix, zeros(1,7));
 end
 
 %By comparing our syndrome_vec with all of the elements of tableSingleErr, if they match, we add the corresponding error. 
 for i = 1:7
-	if(single_error_table(i,:) == syndrome_vec)
+	if isequal(single_error_table(i,:), syndrome_vec)
 		error_vector = zeros(1,7);
 		error_vector(i) = 1;
         %We add the error_vector, a row vector with a one and 6 zeros, to the end of error_matrix.
@@ -73,7 +73,7 @@ end
 %By comparing our syndrome_vec with all of the elements of tableDoubleErr, if they match, we add the two corresponding errors. 
 for i = 1:7
 	for j = i+1:7
-		if(double_error_table(i,:,j) == syndrome_vec)
+		if isequal(double_error_table(i,:,j), syndrome_vec)
 			error_vector = zeros(1,7);
 			error_vector(i) = 1;
 			error_vector(j) = 1;
@@ -86,7 +86,7 @@ end
 for i = 1:7
 	for j = i+1:7
         for k = j+1:7
-            if(squeeze(triple_error_table(i,j,k,:))' == syndrome_vec)
+            if isequal(squeeze(triple_error_table(i,j,k,:))', syndrome_vec)
                 error_vector = zeros(1,7);
                 error_vector(i) = 1;
                 error_vector(j) = 1;

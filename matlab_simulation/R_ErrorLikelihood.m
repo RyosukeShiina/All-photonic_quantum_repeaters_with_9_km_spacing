@@ -28,6 +28,10 @@ out = R_ErrorLikelihood(x, 0.527)
 %First, we prepare a blank column vector of the same size as x to store the corresponding ξ values.
 out = zeros(size(x));
 
+if sig == 0
+    % noiseless: perfect decoding -> zero bit-flip likelihood
+    return;
+end
 
 
 
@@ -43,34 +47,22 @@ n2 = -2:1:2;
 %Then, we compute the ξ value for each component of x.
 for idx = 1:numel(x)
 
+    %sum1 is the numerator part of Eq.(11) of the paper: "Fault-tolerant bosonic quantum error correction with the surface-GKP code".
 
+    %Since n1 is -1 or 0, we have -(z+sqrt(pi))^2 and -(z-sqrt(pi))^2 parts.
+    sum1 = sum(exp( -( x(idx) - (2*n1+1)*sqrt(pi) ).^2 / (2*((sig)^2)) ));
 
-
-    if x(idx) == 0
-        out(idx) = 0;
-    else
-
-
-        %sum1 is the numerator part of Eq.(11) of the paper: "Fault-tolerant bosonic quantum error correction with the surface-GKP code".
-
-        %Since n1 is -1 or 0, we have -(z+sqrt(pi))^2 and -(z-sqrt(pi))^2 parts.
-        sum1 = sum(exp( -( x(idx) - (2*n1+1)*sqrt(pi) ).^2 / (2*((sig)^2)) )); 
-
-        %sum2 is the denominator part of Eq.(11) of the paper: "Fault-tolerant bosonic quantum error correction with the surface-GKP code".
+    %sum2 is the denominator part of Eq.(11) of the paper: "Fault-tolerant bosonic quantum error correction with the surface-GKP code".
         
-        %Since n2 is -2 or -1 or 0 or 1 or 2, we have -(z+2*sqrt(pi))^2 and -(z+sqrt(pi))^2 and -(z)^2 and -(z-sqrt(pi))^2 and -(z-2*sqrt(pi))^2 parts.
-        sum2 = sum(exp( -( x(idx) - n2*sqrt(pi) ).^2 / (2*((sig)^2)) )); 
+    %Since n2 is -2 or -1 or 0 or 1 or 2, we have -(z+2*sqrt(pi))^2 and -(z+sqrt(pi))^2 and -(z)^2 and -(z-sqrt(pi))^2 and -(z-2*sqrt(pi))^2 parts.
+    sum2 = sum(exp( -( x(idx) - n2*sqrt(pi) ).^2 / (2*((sig)^2)) ));
 
+    %Avoid 0/0 or division by 0 due to underflow
+    sum2 = max(sum2, realmin);
 
+    %Avoid Log2(out) = -inf
+    out(idx) = max(sum1/sum2, 1e-15);
 
+end
 
-        %If there is very little noise:
-        if sum2 == 0  && sum1 == 0
-            out(idx) = 0;
-        else
-
-        out(idx) = (sum1/sum2);
-
-        end
-    end
 end

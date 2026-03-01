@@ -128,7 +128,7 @@ end
 
 
 %We pick the maximum ξ from the ErrProb list and store its index in indmax.
-if error_matrix(1,:) == zeros(1,7)
+if isequal(error_matrix(1,:), zeros(1,7))
     ErrProbGrouped = [ErrProb(1,1), log2(sum(2.^ErrProb(1,2:end)))];
 else
     ErrProbGrouped = [log2(2.^ErrProb(1,1) + sum(2.^ErrProb(1,5:8))), log2(sum(2.^ErrProb(1,2:4)))];
