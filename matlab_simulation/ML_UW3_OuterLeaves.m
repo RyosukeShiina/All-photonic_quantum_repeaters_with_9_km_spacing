@@ -1,4 +1,4 @@
-function logErr = UW3_OuterLeaves(L0, sigGKP, etas, etad, etac, k, ErrProbVec)
+function logErr = ML_UW3_OuterLeaves(L0, sigGKP, etas, etad, etac, k, ErrProbVec)
 
 %{
 
@@ -153,22 +153,24 @@ end
 
 
 %Calculate likelihoods of no error:
-PerrorQ = 1-2.^PcorrectQ;
-PerrorP = 1-2.^PcorrectP;
+%PerrorQ = 1-2.^PcorrectQ;
+%PerrorP = 1-2.^PcorrectP;
 
-SecKeyRanking = zeros(size(PerrorP, 2), 1);
+%SecKeyRanking = zeros(size(PerrorP, 2), 1);
 
-for i = 1:size(PerrorP, 2)
-    SecKeyRanking(i) = R_SecretKey6State_per(PerrorP(i), PerrorQ(i));
-end
+%for i = 1:size(PerrorP, 2)
+%    SecKeyRanking(i) = R_SecretKey6State_per(PerrorP(i), PerrorQ(i));
+%end
 
 %Find indesces of PNoError in descending order
-[~, IndDesc] = sort(SecKeyRanking, 'descend');
+%[~, IndDesc] = sort(SecKeyRanking, 'descend');
+
+
 
 %Now check whether there were X errors on the corresponding qubits
 %in descening order according to PNoError:
 for i = 1:k
-    if any(Xerrors(:, IndDesc(i)))
+    if any(Xerrors(:, i))
         Xerr(i) = 1;
     end
 end
@@ -176,7 +178,7 @@ end
 %Now check whether there were Z errors on the corresponding qubits
 %in descening order according to PNoError:
 for i = 1:k
-    if any(Zerrors(:, IndDesc(i)))
+    if any(Zerrors(:, i))
         Zerr(i) = 1;
     end
 end

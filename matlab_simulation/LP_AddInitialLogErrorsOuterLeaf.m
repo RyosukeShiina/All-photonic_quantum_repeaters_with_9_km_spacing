@@ -24,8 +24,6 @@ SampledNoPost = Sampled{12};
 
 %Now the uncorrelated errors
 
-%ONLY INNER-LEAVEES
-
 %Without switch
 pdeltas = pdeltas + Sampled3Sigma(1) * sqrt(pi);
 

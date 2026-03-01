@@ -1,45 +1,67 @@
 function logErr = LP_InnerLeaves(L0, sigGKP, etas, etam, etad, etac, Lcavity, ErrProbVec)
 
-%Abstract:
-%This function outputs the error probabilities of a bit-flip error on the Z-basis and the X-basis happening during one inner leaf measurement inside one repeater.
+%{
 
-%Inputs:
-%L is a distance between a repeater and its neighboring repeater. The unit is [km]. Typically, we set L=9.
-%sigGKP is a standard deviation used in your Gaussian function of GKP-coding. Typically, we set sigGKP=0.12.
-%etas is an error probability that occurs when a graph-state passes through a switch. Typically, we set etas=0.995.
-%etam is an error probability that occurs when a graph-state bounces back inside a mirror room. Typically, we set etas=0.999995.
-%etad is an error probability that occurs when we detect a photon. Typically, we set etad=0.9975.
-%etac is an error probability that occurs when a graph-state passes from a quantum chip to a fiber or from a fiber to a quantum chip. Typically, we set etac=0.99.
-%Lcavity is the size of a mirror room. The unit is [m]. Typically, we set Lcavity=2.
-%ErrProbVec is a result of our LogErrAfterPost-function. Since we have 10 different measurement types, we have 10 different error probabilities. ErrProbVec is a column vector having such 10 error probability values. This error probability is defined as bit-flip results out of all survival results of the window post-selection.
+[Abstract]
 
-%Output:
-%logErr is one of [0, 0], [0, 1], [1, 0] and [1, 1].
-%[0, 0] means both Z and X bit-flip errors didn't happen.
-%[1, 0] means only a Z bit-flip error happens.
-%[0, 1] means only a X bit-flip error happens.
-%[1, 1] means both Z and X bit-flip errors happened.
+This function outputs the simulated errors in the Z and X bases within a single segment, during (1) Construction of Elementary Entangled Bell Pairs and (2) Outer-Leaves Swapping.
+
+
+[Inputs]
+
+L0 — The distance between a repeater and its adjacent repeater, measured in kilometers [km]. Typically, we set L0 = 9.
+
+sigGKP — The standard deviation of the Gaussian displacement noise applied to both the q and p quadratures of both qubits in the G0 states. Typically, we set sigGKP = 0.12.
+
+etas — The efficiency of the optical switch applied to the remaining graph states after a measurement with discard windows. Typically, we set etas=0.995.
+
+etam — The efficiency of mirror reflection per bounce. Typically, we set etam = 0.999995.
+
+etad — The efficiency of a single homodyne detection. Typically, we set etad = 0.9975.
+
+etac — The efficiency of a single connector between the photon fiber and the quantum chip. Typically, we set etac = 0.99.
+
+Lcavity — The distance between successive bounces inside a mirror room or an optical cavity, measured in meters [m]. Typically, we set Lcavity = 2.
+
+ErrProbVec — The output of the R_LogErrAfterPost function. It contains the bit-flip error probabilities for the 12 measurement types, which are made approximately equal by tuning the window sizes.
+
+
+[Output]
+
+logErr — A (k, 2) binary matrix. Each row corresponds to the i-th high-quality optical channel. The first column indicates the presence of a bit-flip error in the Z basis, and the second column indicates the presence of a bit-flip error in the X basis.
+        Specifically:
+            - [0, 0] means that neither Z nor X bit-flip errors occurred.
+            - [1, 0] means that only a Z bit-flip error occurred.
+            - [0, 1] means that only an X bit-flip error occurred.
+            - [1, 1] means that both Z and X bit-flip errors occurred.
+
+[Example]
+
+ErrProbVec = 1.0e-05 *[0.1479, 0.1479, 0.1479, 0.1479, 0.1479, 0.1479, 0.1479, 0.1479, 0.1479, 0.3341, 0.1479, 0.3341]
+
+logErr = LP_InnerLeaves(5, 0.12, 0.995, 0.999995, 0.9975, 0.99, 2, ErrProbVec)
+
+%}
 
 
 %Note:
 %The total length of local storage, such as a mirror room, is also L. This is because the outer qubits pass over L/2 [km] to reach a beamsplitter and the classical measurement result information comes back for the L/2 [km].
 
-
-
 %We derive eta that is a total error probability during being stored in a mirror room.
 %Since inner leaves have to wait for t[s] = 1000L[m] / (7/10)*c_vacuum[m/s] in a mirror room because light speed in a photon fiber is 30% slower than in vacuum. For the period, a photon bounces a wall t[s] * c_air[m/s] / Lcavity[m] times (We assumed c_air = c_vacuum).
+
 eta = etam^(L0*1000*10/(Lcavity*7));
 
 
-%We define 2 look-up tables for the [[7, 1, 3]]-code.
-%This first table is for detecting a single bit-flip error.
-%Here, we transpose the look-up table. This is because this makes it easier to compare our result [a, b, c] (row vector) with [x, y, z] of the look-up table within our BellMeasurementEC-function.
+%We first create a lookup table to detect weight-1 bit-flip errors in the [[7, 1, 3]] code.
+%Here, we take the transpose to make it easier to compare with the syndrome, which is a (1, 3) row vector.
 tableSingleErr =    [ 0, 0, 0, 1, 1, 1, 1;
                       0, 1, 1, 0, 0, 1, 1;
                       1, 0, 1, 0, 1, 0, 1]';
 
-%This second table is for detecting two bit-flip errors.
-%Basically, we add up two row vectors (the ith-row and the j-th row) of the transposed matrix above.
+
+
+%Next, we create a lookup table to detect weight-2 bit-flip errors, using the weight-1 lookup table.
 tableDoubleErr =  zeros(7,3,7);
 for i = 1:7
    for j = 1:7
@@ -58,8 +80,13 @@ for i = 1:7
    end
 end
 
-%The binornd(n, p, a, 1)-function generates random numbers (a, 1)-column matrix from the binomial distribution specified by the trial numbers n (we set n=1 because we can measure each photon only once) and the probability of success for each trial p.
-%We have 10 bit-flip error probabilities after post-selection that correspond to 10 measurement types.
+
+
+%The binornd(n, p, A, B) function generates a (A, B) matrix of random numbers drawn from the binomial distribution with n trials and success probability p for each trial.
+%Here, we set n = 1 and obtain a binary matrix, since each GKP qubit can be measured only once. We set A to the number of specified measurement types, and B to the multiplexing level k.
+
+
+
 
 %We do measurement type-1 46 times during the construction of logical-logical bell pairs.
 Sampled3Sigma = binornd(1,ErrProbVec(1),100,1);
@@ -99,28 +126,38 @@ pdeltas = zeros(7,1);
 %We used a deal-function. This is the same as qdeltas(1:4)=-pdeltas(1:4) and pdeltas(1:4)=qdeltas(1:4)
 [qdeltas(1:4), pdeltas(1:4)] = deal(-pdeltas(1:4), qdeltas(1:4));
 
-%Since inner leaves pass through two switches, four connectors, a mirror room, and a detector, our logical results are affected by the following modified sigma.
+
+
+
+
+%Subsequently, we apply eta derived above, along with additional errors.
+%Note that the final Elementary Entangled Bell Pairs are affected by a single optical switch and pass through four connectors from the factory to the detection center in a repeater, in addition to one more optical switch located at the detection center.
 sigChannel = sqrt(2*sigGKP^2 + (1-etas^2*etac^4*eta*etad)/(etas^2*etac^4*eta*etad));
+qdeltas = qdeltas + normrnd(0, sigChannel, 7, 1);
+pdeltas = pdeltas + normrnd(0, sigChannel, 7, 1);
 
-%Because of the sigChannel above, each inner leaf's Δq = σ^2 + (1-etas)/etas & Δp = σ^2 + (1-etas)/etas are changed to below.
-qdeltas = qdeltas + normrnd(0, sigChannel,7,1);
-pdeltas = pdeltas + normrnd(0, sigChannel,7,1);
 
-%Our BellMeasurementEC-function simulates the Bell measurements for qubits which are encoded with GKP-coding and [[7, 1, 3]] Steane-coding.
-%This function outputs a 7-elements column vector, for example, [0; 0; 0; 0; 0; 0; 1]. Here, 0 means it is correct, and 1 means it contains a bit-flip error.
-%First, we use the BellMeasurementEC-function to simulate Z-basis bit-flip errors with pdeltas.
+
+
+%Using the R_ConcatenatedEC_InnerLeaves function, we calculate the 7 binary bits resulting from [[7, 1, 3]] Steane error correction (if no error occurs, the result is a row vector of seven zeros) in the q-quadrature.
 Zerrors = R_ConcatenatedEC_InnerLeaves(pdeltas, sigChannel, tableSingleErr, tableDoubleErr, tableTripleErr);
 
-%If there is 1 among the output, e.g. [0; 0; 0; 0; 0; 0; 1], we consider the result to have an error.
+
+
+%Using the R_ConcatenatedEC_InnerLeaves function, we calculate the 7 binary bits resulting from [[7, 1, 3]] Steane error correction (if no error occurs, the result is a row vector of seven zeros) in the p-quadrature.
+Xerrors = R_ConcatenatedEC_InnerLeaves(qdeltas, sigChannel, tableSingleErr, tableDoubleErr, tableTripleErr);
+
+
+
+
+
+%We check whether an Z-error has occurred for each optical channel.
 if any(Zerrors)
     Zerr = 1;
 else
-    %If our output is [0; 0; 0; 0; 0; 0; 0], we consider the result to have no error.
     Zerr = 0;
 end
 
-%Next, we use the R_ConcatenatedEC_InnerLeaves to simulate X-basis bit-flip errors with qdeltas.
-Xerrors = R_ConcatenatedEC_InnerLeaves(qdeltas, sigChannel, tableSingleErr, tableDoubleErr, tableTripleErr);
 
 if any(Xerrors)
     Xerr = 1;
@@ -128,9 +165,8 @@ else
     Xerr = 0;
 end
 
-%logErr is one of [0, 0], [0, 1], [1, 0] and [1, 1].
-%[0, 0] means both Z and X bit-flip errors didn't happen.
-%[1, 0] means only a Z bit-flip error happens.
-%[0, 1] means only a X bit-flip error happens.
-%[1, 1] means both Z and X bit-flip errors happened.
+
+
+
+%Finally, we combine the two results above for each optical channel.
 logErr = [Zerr,Xerr];

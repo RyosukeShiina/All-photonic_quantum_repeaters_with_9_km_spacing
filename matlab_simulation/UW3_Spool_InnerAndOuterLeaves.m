@@ -1,4 +1,4 @@
-function [Zerr,Xerr] = LP_InnerAndOuterLeaves(L0, sigGKP, etas, etam, etad, etac, Lcavity, k, v, leaves, N)
+function [Zerr,Xerr] = UW3_Spool_InnerAndOuterLeaves(L0, sigGKP, etas, etad, etac, k, v, leaves, N, n)
 
 %{
 
@@ -32,12 +32,12 @@ v — The window size of measurement type 7. This is the widest window among all
     Typically, we set v = 0.3. This choice is based on the observation that the bit-flip error probability saturates around v = 0.3.
 
 leaves — An integer parameter that can take values 0, 1, or 2, specifying which processes to simulate.  
-			- leaves = 0: Simulates only (1) Construction of Elementary Entangled Bell Pairs and (3) Inner-Leaf Swapping.  
-			- leaves = 1: Simulates all three processes —  
+			- leaves = 0: Simulates only (1) Construction of Elementary Entangled Bell Pairs and (3) Outer-Leaf Swapping.
+			- leaves = 1: Simulates all three processes —
 				(1) Construction of Elementary Entangled Bell Pairs,  
 				(2) Outer-Leaves Swapping, and  
 				(3) Inner-Leaves Swapping.  
-			- leaves = 2: Simulates only (1) Construction of Elementary Entangled Bell Pairs and (2) Outer-Leaf Swapping.
+			- leaves = 2: Simulates only (1) Construction of Elementary Entangled Bell Pairs and (2) Inner-Leaf Swapping.
 
 N — The number of trials. When N = 100, the simulation is repeated 100 times.
 
@@ -51,13 +51,13 @@ Xerr — The bit-flip error probabilities in the X basis. For example, setting k
 
 [Example]
 
-[Zerr, Xerr] = LP_InnerAndOuterLeaves(9, 0.12, 0.995, 0.999995, 0.9975, 0.99, 2, 15, 0.3, 1, 10000000)
+[Zerr, Xerr] = UW3_InnerAndOuterLeaves(9, 0.12, 0.995, 0.999995, 0.9975, 0.99, 2, 15, 0.3, 1, 10000000)
 
 
 %}
 
 
-% Throughout the UW2 construction process of elementary entangled Bell pairs, there are 10 types of measurements. For each type, we compute the effective standard deviation of the noise just before the measurement occurs.
+% Throughout the UW3 construction process of elementary entangled Bell pairs, there are 12 types of measurements. For each type, we compute the effective standard deviation of the noise just before the measurement occurs.
 sigmasPostselect = zeros(1, 11);
 
 
@@ -114,6 +114,7 @@ ZerrInner = 0;
 
 
 
+
 %We simulate Outer-Leaves Swapping.
 %When leaves == 2, Outer-Leaves Swapping is skipped.
 if leaves == 2
@@ -122,13 +123,14 @@ if leaves == 2
 %When leaves ~= 2, we simulate Outer-Leaves Swapping using the UW2_OuterLeaves function. In this case, we record the average over N trials.
 else
     parfor i = 1:N
-        logErrOuter = LP_OuterLeaf(L0, sigGKP, etas, etad, etac, k, ErrProbVec);
+        logErrOuter = UW3_OuterLeaves(L0, sigGKP, etas, etad, etac, k, ErrProbVec);
         ZerrOuter = ZerrOuter + logErrOuter(:,1);
         XerrOuter = XerrOuter + logErrOuter(:,2);
     end
     ZerrOuter = ZerrOuter/N;
     XerrOuter = XerrOuter/N;
 end
+
 
 
 
@@ -140,7 +142,7 @@ if leaves == 0
 %When leaves ~= 0, we simulate Inner-Leaves Swapping using the UW2_InnerLeaves function. In this case, we record the average over N trials.
 else
     parfor i = 1:N
-        logErrInner = LP_InnerLeaves(L0, sigGKP, etas, etam, etad, etac, Lcavity, ErrProbVec);
+        logErrInner = UW3_Spool_InnerLeaves(L0, sigGKP, etas, etad, etac, ErrProbVec, k, n);
         ZerrInner = ZerrInner + logErrInner(1);
         XerrInner = XerrInner + logErrInner(2);
     end
@@ -161,6 +163,3 @@ XerrInnerVec = XerrInner*ones(k,1);
 %Therefore, instead of simply summing the two error probability column vectors, we compute the probability that Inner-Leaves Swapping causes an error while Outer-Leaves Swapping does not, and vice versa, and then sum these two contributions.
 Zerr = ZerrInnerVec.*(ones(k,1) - ZerrOuter) + ZerrOuter.*(ones(k,1) - ZerrInnerVec);
 Xerr = XerrInnerVec.*(ones(k,1) - XerrOuter) + XerrOuter.*(ones(k,1) - XerrInnerVec);
-
-
-%disp([mean(ZerrOuter), mean(XerrOuter), ZerrInner, XerrInner])

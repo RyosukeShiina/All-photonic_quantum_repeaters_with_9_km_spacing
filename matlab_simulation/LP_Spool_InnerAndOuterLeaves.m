@@ -1,4 +1,4 @@
-function [Zerr,Xerr] = LP_Spool_InnerAndOuterLeaves(L0, sigGKP, etas, etam, etad, etac, Lcavity, k, v, leaves, N)
+function [Zerr,Xerr] = LP_Spool_InnerAndOuterLeaves(L0, sigGKP, etas, etad, etac, k, v, leaves, N, n)
 
 %{
 
@@ -51,7 +51,7 @@ Xerr — The bit-flip error probabilities in the X basis. For example, setting k
 
 [Example]
 
-[Zerr, Xerr] = LP_Spool_InnerAndOuterLeaves(9, 0.12, 0.995, 0.999995, 0.9975, 0.99, 2, 15, 0.3, 1, 10000000)
+[Zerr, Xerr] = LP_Spool_InnerAndOuterLeaves(4, 0.12, 0.995, 0.9975, 0.99, 15, 0.3, 1, 1000, 16)
 
 
 %}
@@ -122,7 +122,7 @@ if leaves == 2
 %When leaves ~= 2, we simulate Outer-Leaves Swapping using the UW2_OuterLeaves function. In this case, we record the average over N trials.
 else
     parfor i = 1:N
-        logErrOuter = LP_OuterLeaves(L0, sigGKP, etas, etad, etac, k, ErrProbVec);
+        logErrOuter = LP_OuterLeaf(L0, sigGKP, etas, etad, etac, k, ErrProbVec);
         ZerrOuter = ZerrOuter + logErrOuter(:,1);
         XerrOuter = XerrOuter + logErrOuter(:,2);
     end
@@ -140,7 +140,7 @@ if leaves == 0
 %When leaves ~= 0, we simulate Inner-Leaves Swapping using the UW2_InnerLeaves function. In this case, we record the average over N trials.
 else
     parfor i = 1:N
-        logErrInner = LP_Spool_InnerLeaves(L0, sigGKP, etas, etam, etad, etac, Lcavity, ErrProbVec);
+        logErrInner = LP_Spool_InnerLeaves(L0, sigGKP, etas, etad, etac, ErrProbVec, k, n);
         ZerrInner = ZerrInner + logErrInner(1);
         XerrInner = XerrInner + logErrInner(2);
     end

@@ -1,4 +1,4 @@
-function [Zerr,Xerr] = LP_InnerAndOuterLeaves(L0, sigGKP, etas, etam, etad, etac, Lcavity, k, v, leaves, N)
+function [Zerr,Xerr] = ML_UW2_InnerAndOuterLeaves(L0, sigGKP, etas, etam, etad, etac, Lcavity, k, v, leaves, N)
 
 %{
 
@@ -32,12 +32,12 @@ v — The window size of measurement type 7. This is the widest window among all
     Typically, we set v = 0.3. This choice is based on the observation that the bit-flip error probability saturates around v = 0.3.
 
 leaves — An integer parameter that can take values 0, 1, or 2, specifying which processes to simulate.  
-			- leaves = 0: Simulates only (1) Construction of Elementary Entangled Bell Pairs and (3) Inner-Leaf Swapping.  
-			- leaves = 1: Simulates all three processes —  
+			- leaves = 0: Simulates only (1) Construction of Elementary Entangled Bell Pairs and (3) Outer-Leaf Swapping.
+			- leaves = 1: Simulates all three processes —
 				(1) Construction of Elementary Entangled Bell Pairs,  
 				(2) Outer-Leaves Swapping, and  
 				(3) Inner-Leaves Swapping.  
-			- leaves = 2: Simulates only (1) Construction of Elementary Entangled Bell Pairs and (2) Outer-Leaf Swapping.
+			- leaves = 2: Simulates only (1) Construction of Elementary Entangled Bell Pairs and (2) Inner-Leaf Swapping.
 
 N — The number of trials. When N = 100, the simulation is repeated 100 times.
 
@@ -51,28 +51,33 @@ Xerr — The bit-flip error probabilities in the X basis. For example, setting k
 
 [Example]
 
-[Zerr, Xerr] = LP_InnerAndOuterLeaves(9, 0.12, 0.995, 0.999995, 0.9975, 0.99, 2, 15, 0.3, 1, 10000000)
+[Zerr, Xerr] = ML_UW2_InnerAndOuterLeaves(9, 0.12, 0.995, 0.999995, 0.9975, 0.99, 2, 15, 0.3, 0, 10000000)
 
 
 %}
 
 
 % Throughout the UW2 construction process of elementary entangled Bell pairs, there are 10 types of measurements. For each type, we compute the effective standard deviation of the noise just before the measurement occurs.
-sigmasPostselect = zeros(1, 11);
+sigmasPostselect = zeros(1, 9);
 
 
 
+% Measurements 1–5: Postselected homodyne measurements for XX-measurements.
 sigmasPostselect(1) = sqrt(3*sigGKP^2 + (1-etad)/etad);
 sigmasPostselect(2) = sqrt(3*sigGKP^2 + (1-etas*etad)/(etas*etad));
 sigmasPostselect(3) = sqrt(3*sigGKP^2 + (1-etas^2*etad)/(etas^2*etad));
+
 sigmasPostselect(4) = sqrt(2*sigGKP^2 + (1-etas*etad)/(etas*etad));
 sigmasPostselect(5) = sqrt(2*sigGKP^2 + (1-etas^2*etad)/(etas^2*etad));
+
+% Measurements 6–9: Postselected homodyne measurements for refreshment measurements.
 sigmasPostselect(6) = sqrt(3*sigGKP^2 + 1 - etas^2 + (1-etad)/etad);
 sigmasPostselect(7) = sqrt(3*sigGKP^2 + 1 - etas^3 + (1-etad)/etad);
+
 sigmasPostselect(8) = sqrt(2*sigGKP^2 + 1 - etas^2 + (1-etad)/etad);
 sigmasPostselect(9) = sqrt(2*sigGKP^2 + 1 - etas^3 + (1-etad)/etad);
-sigmasPostselect(10) = sqrt(3*sigGKP^2 + 1 - etas + (1-etad)/etad);
-sigmasPostselect(11) = sqrt(2*sigGKP^2 + 1 - etas + (1-etad)/etad);
+
+sigmasPostselect(10) = sqrt(3*sigGKP^2 + (1-etas^3*etad)/(etas^3*etad));
 
 % Measurement without postselection
 sigmasNoPost = sqrt(2*sigGKP^2 + (1-etas*etad)/(etas*etad));
@@ -88,16 +93,16 @@ vVec = R_Find_v(sigmasPostselect, R_LogErrAfterPost(sigmasPostselect(7),v), v+0.
 %We prepare two blank row vectors to record:  
 %(1) the bit-flip error probability (which should be close in value across all measurement types), and  
 %(2) the survival probability after post-selection using the window sizes determined above.
-ErrProbVec = zeros(1,12);
-pVec = zeros(1,12);
+ErrProbVec = zeros(1,10);
+pVec = zeros(1,10);
 
 
 
 %We calculate the bit-flip error probability and the survival probability after post-selection using the windows that correspond to each measurement, with the R_LogErrAfterPost function.
-for i = 1:11
+for i = 1:9
     [ErrProbVec(i), pVec(i)] = R_LogErrAfterPost(sigmasPostselect(i), vVec(i));
 end
-[ErrProbVec(12), pVec(12)] = R_LogErrAfterPost(sigmasNoPost, 0);
+[ErrProbVec(10), pVec(10)] = R_LogErrAfterPost(sigmasNoPost, 0);
 
 
 
@@ -122,7 +127,7 @@ if leaves == 2
 %When leaves ~= 2, we simulate Outer-Leaves Swapping using the UW2_OuterLeaves function. In this case, we record the average over N trials.
 else
     parfor i = 1:N
-        logErrOuter = LP_OuterLeaf(L0, sigGKP, etas, etad, etac, k, ErrProbVec);
+        logErrOuter = ML_UW2_OuterLeaves(L0, sigGKP, etas, etad, etac, k, ErrProbVec);
         ZerrOuter = ZerrOuter + logErrOuter(:,1);
         XerrOuter = XerrOuter + logErrOuter(:,2);
     end
@@ -140,7 +145,7 @@ if leaves == 0
 %When leaves ~= 0, we simulate Inner-Leaves Swapping using the UW2_InnerLeaves function. In this case, we record the average over N trials.
 else
     parfor i = 1:N
-        logErrInner = LP_InnerLeaves(L0, sigGKP, etas, etam, etad, etac, Lcavity, ErrProbVec);
+        logErrInner = UW2_InnerLeaves(L0, sigGKP, etas, etam, etad, etac, Lcavity, ErrProbVec);
         ZerrInner = ZerrInner + logErrInner(1);
         XerrInner = XerrInner + logErrInner(2);
     end
@@ -161,6 +166,3 @@ XerrInnerVec = XerrInner*ones(k,1);
 %Therefore, instead of simply summing the two error probability column vectors, we compute the probability that Inner-Leaves Swapping causes an error while Outer-Leaves Swapping does not, and vice versa, and then sum these two contributions.
 Zerr = ZerrInnerVec.*(ones(k,1) - ZerrOuter) + ZerrOuter.*(ones(k,1) - ZerrInnerVec);
 Xerr = XerrInnerVec.*(ones(k,1) - XerrOuter) + XerrOuter.*(ones(k,1) - XerrInnerVec);
-
-
-%disp([mean(ZerrOuter), mean(XerrOuter), ZerrInner, XerrInner])

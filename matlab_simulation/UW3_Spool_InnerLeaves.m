@@ -1,48 +1,24 @@
-function logErr = LP_Spool_InnerLeaves(L0, sigGKP, etas, etad, etac, ErrProbVec, k, n)
+function logErr = UW3_Spool_InnerLeaves(L0, sigGKP, etas, etad, etac, ErrProbVec, k, n)
 
-%{
+%Abstract:
+%This function outputs the error probabilities of a bit-flip error on the Z-basis and the X-basis happening during one inner leaf measurement inside one repeater.
 
-[Abstract]
+%Inputs:
+%L is a distance between a repeater and its neighboring repeater. The unit is [km]. Typically, we set L=9.
+%sigGKP is a standard deviation used in your Gaussian function of GKP-coding. Typically, we set sigGKP=0.12.
+%etas is an error probability that occurs when a graph-state passes through a switch. Typically, we set etas=0.995.
+%etad is an error probability that occurs when we detect a photon. Typically, we set etad=0.9975.
+%etac is an error probability that occurs when a graph-state passes from a quantum chip to a fiber or from a fiber to a quantum chip. Typically, we set etac=0.99.
+%n is the number of GKP channels and GKP corrections before a logical Bell measurement on the inner leaves. Typically we perform the TEC every 250 m
+%of the fiber spool which means we set n=L/0.25 = 4L.
+%ErrProbVec is a result of our LogErrAfterPost-function. Since we have 10 different measurement types, we have 10 different error probabilities. ErrProbVec is a column vector having such 10 error probability values. This error probability is defined as bit-flip results out of all survival results of the window post-selection.
 
-This function outputs the simulated errors in the Z and X bases within a single segment, during (1) Construction of Elementary Entangled Bell Pairs and (2) Outer-Leaves Swapping.
-
-
-[Inputs]
-
-L0 — The distance between a repeater and its adjacent repeater, measured in kilometers [km]. Typically, we set L0 = 9.
-
-sigGKP — The standard deviation of the Gaussian displacement noise applied to both the q and p quadratures of both qubits in the G0 states. Typically, we set sigGKP = 0.12.
-
-etas — The efficiency of the optical switch applied to the remaining graph states after a measurement with discard windows. Typically, we set etas=0.995.
-
-etam — The efficiency of mirror reflection per bounce. Typically, we set etam = 0.999995.
-
-etad — The efficiency of a single homodyne detection. Typically, we set etad = 0.9975.
-
-etac — The efficiency of a single connector between the photon fiber and the quantum chip. Typically, we set etac = 0.99.
-
-Lcavity — The distance between successive bounces inside a mirror room or an optical cavity, measured in meters [m]. Typically, we set Lcavity = 2.
-
-ErrProbVec — The output of the R_LogErrAfterPost function. It contains the bit-flip error probabilities for the 12 measurement types, which are made approximately equal by tuning the window sizes.
-    
-n - The number of GKP channels and GKP corrections before a logical Bell measurement on the inner leaves. Typically we perform the TEC every 250 m of the fiber spool which means we set n=L/0.25 = 4L.
-
-[Output]
-
-logErr — A (k, 2) binary matrix. Each row corresponds to the i-th high-quality optical channel. The first column indicates the presence of a bit-flip error in the Z basis, and the second column indicates the presence of a bit-flip error in the X basis.
-        Specifically:
-            - [0, 0] means that neither Z nor X bit-flip errors occurred.
-            - [1, 0] means that only a Z bit-flip error occurred.
-            - [0, 1] means that only an X bit-flip error occurred.
-            - [1, 1] means that both Z and X bit-flip errors occurred.
-
-[Example]
-
-ErrProbVec = 1.0e-05 *[0.1479, 0.1479, 0.1479, 0.1479, 0.1479, 0.1479, 0.1479, 0.1479, 0.1479, 0.3341, 0.1479, 0.3341]
-
-logErr = LP_Spool_InnerLeaves(5, 0.12, 0.995, 0.999995, 0.9975, 0.99, 2, ErrProbVec, 15, 20)
-
-%}
+%Output:
+%logErr is one of [0, 0], [0, 1], [1, 0] and [1, 1].
+%[0, 0] means both Z and X bit-flip errors didn't happen.
+%[1, 0] means only a Z bit-flip error happens.
+%[0, 1] means only a X bit-flip error happens.
+%[1, 1] means both Z and X bit-flip errors happened.
 
 
 %Note:
@@ -105,27 +81,32 @@ Sampled2 = {Sampled3Sigma(end/2 + 1:end,1),Sampled3SigmaSwitch(end/2 + 1:end,1),
 
 %We simulate two halves of a logical-logical bell pair.
 %We set an initial shift error, which just afeter step (b), as zero.
-qdeltas1 = zeros(7,1);
-pdeltas1 = zeros(7,1);
-qdeltas2 = zeros(7,1);
-pdeltas2 = zeros(7,1);
+qdeltas1 = zeros(7,1);   %%%%%%
+pdeltas1 = zeros(7,1);   %%%%%%
+
+qdeltas2 = zeros(7,1);   %%%%%%
+pdeltas2 = zeros(7,1);   %%%%%%
 
 
 %Using the Sampled1 and Sampled2 above and our AddInitialLogErrors-function, we consider all of the correlated errors and add sqrt(pi) for them, which happen during our logical-logical bell pair construction.
-[qdeltas1, pdeltas1] = LP_AddInitialLogErrorsInnerLeaves(qdeltas1, pdeltas1, Sampled1);
-[qdeltas2, pdeltas2] = LP_AddInitialLogErrorsInnerLeaves(qdeltas2, pdeltas2, Sampled2);
+[qdeltas1, pdeltas1] = UW3_AddInitialLogErrors(qdeltas1, pdeltas1, Sampled1);   %%%%%%
+[qdeltas2, pdeltas2] = UW3_AddInitialLogErrors(qdeltas2, pdeltas2, Sampled2);   %%%%%%
 
 
 %We have to apply a H-gate before an XX-measurement. We swap a q-value shift error and a p-value shift error according to the formulas: H(-p)H^{dagger} = q and HqH^{dagger} = p.
 %We used a deal-function. This is the same as qdeltas(1:4)=-pdeltas(1:4) and pdeltas(1:4)=qdeltas(1:4)
-[qdeltas1(1:4), pdeltas1(1:4)] = deal(-pdeltas1(1:4), qdeltas1(1:4));
-[qdeltas2(1:4), pdeltas2(1:4)] = deal(-pdeltas2(1:4), qdeltas2(1:4));
+[qdeltas1(1:4), pdeltas1(1:4)] = deal(-pdeltas1(1:4), qdeltas1(1:4));   %%%%%%
+[qdeltas2(1:4), pdeltas2(1:4)] = deal(-pdeltas2(1:4), qdeltas2(1:4));   %%%%%%
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %Now the communication channels after resource state preparation
+
+
 Latt=22;
 etaspool = exp(-L0/(n*Latt));
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -149,6 +130,8 @@ else
     %If our output is [0; 0; 0; 0; 0; 0; 0], we consider the result to have no error.
     Zerr = 0;
 end
+
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
