@@ -42,7 +42,8 @@ To reproduce QCNC figures from the provided data:
    - arXiv Fig. 18: `FIG10A02_Rate_vs_Distance.ipynb`
    - arXiv Fig. 19: `FIG10A03_NoGKP_vs_Distance.ipynb`
    - arXiv Fig. 22: `FIG10B03_Rate_vs_Distance.ipynb`
-   - arXiv Fig. 23: `FIG10B04_NoGKP_vs_Distance.ipynb`  
+   - arXiv Fig. 23: `FIG10B04_Rate_vs_Distance.ipynb`
+   - arXiv Fig. 24: `FIG10B05_NoGKP_vs_Distance.ipynb`
 
 The notebooks load data from `python_plotting/Fig_Data/`.
 
