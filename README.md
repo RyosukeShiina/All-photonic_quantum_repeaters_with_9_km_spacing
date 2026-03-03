@@ -174,7 +174,7 @@ project-root/
 │   ├── Rate_vs_Distance_UW2_and_UW3.m (Fig 9B01)
 │   ├── Rate_vs_k_UW2.m (Fig 9B02-9B04)
 │   ├── Rate_vs_k_UW3.m (Fig 9B02-9B04)
-│   ├── Rate_vs_Distance_ML_UW2_and_UW3.m (Fig 10A01)
+│   ├── Rate_vs_Distance_ML_UW2_and_UW3.m (Fig 10A02)
 │   ├── Rate_vs_Distance_LP.m (Fig 10B01)
 │   └── Rate_vs_Distance_LP_Spool.m (Fig 10B03)
 ├── mathematica_simulation/
@@ -191,6 +191,8 @@ project-root/
 │   ├── NoG1_vs_k_UW2_k=19.m (Fig 9C02)
 │   ├── NoG1_vs_k_UW2_k=20.m (Fig 9C02)
 │   ├── NoG1_vs_k_UW3.m (Fig 9C02)
+│   ├── NoG1_vs_Distance_ML_UW2.m (Fig 10A03)
+│   ├── NoG1_vs_Distance_ML_UW3.m (Fig 10A03)
 │   └── NoG1_vs_Distance_LP.m (Fig 10B02)
 ├── python_plotting/
 │   ├── FIG9A01_Perror_vs_v7.ipynb
