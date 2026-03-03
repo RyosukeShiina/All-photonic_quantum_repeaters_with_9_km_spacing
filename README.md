@@ -33,7 +33,7 @@ To reproduce QCNC figures from the provided data:
    - arXiv Fig. 8: `FIG9B02-FIG9B05_Rate_vs_k.ipynb`
    - arXiv Fig. 9: `FIG9B02-FIG9B05_Rate_vs_k.ipynb`
    - arXiv Fig. 10: `FIG9C01_NoGKP_vs_Distance.ipynb`
-   - arXiv Fig. 11: 
+   - arXiv Fig. 11: `FIG9C02_NoGKP_vs_k.ipynb`
    - arXiv Fig. 12: `FIG9D01-FIG9D05_Cost.ipynb`
    - arXiv Fig. 13: `FIG9D01-FIG9D05_Cost.ipynb`
    - arXiv Fig. 14: `FIG9D01-FIG9D05_Cost.ipynb`
@@ -197,6 +197,7 @@ project-root/
 │   ├── FIG9B01_Rate_vs_Distance.ipynb
 │   ├── FIG9B02-FIG9B05_Rate_vs_k.ipynb
 │   ├── FIG9C01_NoGKP_vs_Distance.ipynb
+│   ├── FIG9C02_NoGKP_vs_k.ipynb
 │   ├── FIG9D01-FIG9D05_Cost.ipynb
 │   ├── FIG10A02_Rate_vs_Distance.ipynb
 │   ├── FIG10B03_Rate_vs_Distance.ipynb
