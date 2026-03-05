@@ -206,6 +206,7 @@ project-root/
 │   ├── FIG10A03_NoGKP_vs_Distance.ipynb
 │   ├── FIG10B03_Rate_vs_Distance.ipynb
 │   ├── FIG10B04_Rate_vs_Distance.ipynb
+│   ├── FIG10B05_NoGKP_vs_Distance.ipynb
 │   ├── QCNC_camera-ready_FIG3_Rate_vs_Distance.ipynb (QCNC_Fig 3)
 │   ├── QCNC_camera-ready_FIG4_Rate_vs_k.ipynb (QCNC_Fig 4)
 │   ├── QCNC_camera-ready_FIG5_NoGKP_vs_Distance.ipynb (QCNC_Fig 5)
