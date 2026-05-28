@@ -22,8 +22,8 @@ The notebooks load data from `python_plotting/Fig_Data/`.
 If you would like to regenerate the simulation outputs from scratch, please use the UW3 series.
 
 # For arXiv paper readers
-This repository already contains simulation outputs used in the QCNC figures.
-To reproduce QCNC figures from the provided data:
+This repository already contains simulation outputs used in the arXiv figures.
+To reproduce arXiv figures from the provided data:
 1. Go to `python_plotting/`
 2. Open and run the following notebooks:
    - arXiv Fig. 4: `FIG9A01_Perror_vs_v7.ipynb`
