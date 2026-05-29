@@ -51,7 +51,6 @@ To reproduce arXiv figures from the provided data:
 The notebooks load data from `python_plotting/fig_data/`.
 
 # Folder Structure and Call Hierarchy
-When viewing this repository on GitHub, please first open the `README.md` file. To properly display the directory tree shown below, make sure to click on the **Code** tab.
 
 ```text
 project-root/
